@@ -41,7 +41,7 @@ const Signup = () => {
   
   return (
     <>
-    <div className='mx-8 h-auto  md:mx-20 mt-10 md:mt-12 lg:mt-16'>
+    <div className='mx-8 h-auto  md:mx-20 mt-10 md:mt-12 lg:mt-16 bg-white'>
     <div className=' md:flex'>
         <div className="hidden md:flex md:flex-col w-1/2">
         <div className='flex md:mt-16 lg:mt-2'>
@@ -55,7 +55,7 @@ const Signup = () => {
         <div className='text-slate-400 md:text-sm lg:text-lg'>Plan your next recruitment here</div>
         
         <div className=' mt-10 xl:mt-0 xl:pl-10 xl:pt-10 xl:pr-10 2xl:p-20'>
-        <img className='w-full  ' src={LogImg} alt="" />
+        <img className='w-full md:h-60 lg:h-80 xl:h-96  ' src={LogImg} alt="" />
         </div>
         <div className='grid justify-end'>
         <div className='mt-2 text-xs lg:text-base text-slate-500'>
@@ -110,7 +110,7 @@ const Signup = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label="Enter Your Password"
           />
         </FormControl>
           </div>
@@ -136,7 +136,7 @@ const Signup = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label="Confirm Password"
           />
         </FormControl>
           </div>

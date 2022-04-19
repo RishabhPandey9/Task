@@ -1,11 +1,12 @@
 
 import LogImg from '../Login/LoginImg.png'
-import React, { useEffect, useState } from 'react';
+import  React, { useEffect, useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 
 import Cookies from "universal-cookie";
@@ -13,30 +14,45 @@ import axios from "axios";
 
 const cookies = new Cookies();
 
-const ForgotPass = () => {
+const EnterOtp = () => {
 
-  const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+    const [otp, setOtp] = useState("");
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      setEmail(cookies.get("email"));
+    }, []);
+  
+    const headers = {
+      Authorization: "Token " + cookies.get("token"),
+    };
 
-  useEffect(() => {}, [email]);
-
-  async function SendOtp(e) {
-    e.preventDefault();
-    let data = { email };
-    axios
-      .post("auth/user/forgot/password", data, {})
-      .then((res) => {
-        console.log(res.data);
-        navigate({
-          pathname: "/EnterOtp",
-          state: { token: res.data.token, email: email },
-        });
-        cookies.set("email", data.email);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    async function enterOtp(e) {
+        e.preventDefault();
+    
+        axios
+          .post(
+            "auth/user/forgot/password/verify",
+            {
+              email: email,
+              otp: otp,
+            },
+            {
+              headers: headers,
+            }
+          )
+          .then((resp) => {
+            console.log(resp);
+            navigate({
+              pathname: "/ChangePass",
+              state: { token: resp.data.token },
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
   
   return (
     <>
@@ -65,23 +81,24 @@ const ForgotPass = () => {
         <div className='border-2 w-full py-5 px-5 md:w-1/2  rounded-lg border-blue-600 md:ml-20'>
           <div className='grid grid-cols-1 gap-y-4'>
           <div className=' md:mt-5 lg:mt-20 xl:mt-24 font-bold text-lg lg:text-2xl xl:text-3xl'>
-          Admin Forgot Password
+          Enter OTP
           </div>
           <div  className='mt-2 xl:mt-6'>
           
      
         <TextField
           className='w-full '
-          label="Enter Email ID/ Phone Number"
+          label="Enter OTP"
           id="outlined-size-small"
-          onChange={(e) => setEmail(e.target.value)}
+            type="number"
           size="small"
+          onChange={(e) => setOtp(e.target.value)}
         />
           </div>
          
         
           <div className='mt-6 xl:mt-6'>
-          <Button onClick={SendOtp} className='w-full' variant="contained">Send</Button>
+          <Button onClick={enterOtp} className='w-full' variant="contained">Create New Password</Button>
           </div>
           <Link to="/">
             <div>
@@ -97,4 +114,4 @@ const ForgotPass = () => {
   )
 }
 
-export default ForgotPass
+export default EnterOtp

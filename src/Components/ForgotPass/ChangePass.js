@@ -1,42 +1,55 @@
 
 import LogImg from '../Login/LoginImg.png'
-import React, { useEffect, useState } from 'react';
+import  React,{useState,useEffect} from 'react';
 
 import TextField from '@mui/material/TextField';
 
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const cookies = new Cookies();
 
-const ForgotPass = () => {
 
-  const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+const ChangePass = () => {
 
-  useEffect(() => {}, [email]);
-
-  async function SendOtp(e) {
-    e.preventDefault();
-    let data = { email };
-    axios
-      .post("auth/user/forgot/password", data, {})
-      .then((res) => {
-        console.log(res.data);
-        navigate({
-          pathname: "/EnterOtp",
-          state: { token: res.data.token, email: email },
+    const [newPass, setNewPass] = useState("");
+    const [oldPass, setOldPass] = useState("");
+    const navigate = useNavigate();
+  
+    const headers = {
+      Authorization: "Token " + cookies.get("token"),
+    };
+  
+    async function done(e) {
+      e.preventDefault();
+      console.log(newPass,oldPass)
+      if (newPass === oldPass){
+        axios
+        .post(
+          "/auth/user/reset/password",
+          {
+            password: newPass,
+          },
+          {
+            headers: headers,
+          }
+        )
+        .then((resp) => {
+          console.log(resp);
+          navigate({
+            pathname: "/",
+            state: { token: resp.data.token },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        cookies.set("email", data.email);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+      }
+      
+    }
   
   return (
     <>
@@ -65,29 +78,34 @@ const ForgotPass = () => {
         <div className='border-2 w-full py-5 px-5 md:w-1/2  rounded-lg border-blue-600 md:ml-20'>
           <div className='grid grid-cols-1 gap-y-4'>
           <div className=' md:mt-5 lg:mt-20 xl:mt-24 font-bold text-lg lg:text-2xl xl:text-3xl'>
-          Admin Forgot Password
+          Change Password
           </div>
-          <div  className='mt-2 xl:mt-6'>
-          
+          <div className='mt-2 xl:mt-6'>
+          <TextField
+          className='w-full '
+          label="Enter New Password"
+          id="outlined-size-small"
+          onChange={(e) => setOldPass(e.target.value)}
+          size="small"
+        />
+          </div>
+          <div  className='mt-1 xl:mt-6'>
+         
      
         <TextField
           className='w-full '
-          label="Enter Email ID/ Phone Number"
+          label="Confirm Password"
           id="outlined-size-small"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setNewPass(e.target.value)}
           size="small"
         />
           </div>
          
         
           <div className='mt-6 xl:mt-6'>
-          <Button onClick={SendOtp} className='w-full' variant="contained">Send</Button>
+          <Button onClick={done} className='w-full' variant="contained">Done</Button>
           </div>
-          <Link to="/">
-            <div>
-            <button className='border-2 py-2 w-full hover:bg-slate-500 ease-in duration-200 hover:text-white  border-slate-300 rounded-lg text-xs text-slate-500' >Already have an account? Sign In</button>
-            </div>
-            </Link>
+         
         </div>
         </div>
         </div>
@@ -97,4 +115,4 @@ const ForgotPass = () => {
   )
 }
 
-export default ForgotPass
+export default ChangePass
