@@ -4,10 +4,16 @@ import Signup from "./Components/SignUp/Signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
-import LiveJobs from "./Components/Posted_Jobs/LiveJobs";
+import Jobs from "./Components/Posted_Jobs/Jobs";
 import EnterOtp from "./Components/ForgotPass/EnterOtp";
 import ChangePass from "./Components/ForgotPass/ChangePass";
 import CompanyProfile from "./Components/CompanyProfile/CompanyProfile";
+import Message from "./Components/Message/Message";
+import SendMessage from "./Components/Message/SendMessage";
+import SendReply from "./Components/Message/SendReply";
+import JobDetails from "./Components/Posted_Jobs/JobDetails";
+import Profile from "./Components/Profile/Profile";
+import Meeting from "./Components/Meeting/Meeting";
 
 
 function App() {
@@ -19,8 +25,14 @@ function App() {
       <Route exact path="/ForgotPass" element={<ForgotPass/>} />
       <Route exact path="/EnterOtp" element={<EnterOtp/>} />
       <Route exact path="/ChangePass" element={<ChangePass/>} />
-      <Route exact path="/LiveJobs" element={<LiveJobs/>} />
+      <Route exact path="/Jobs" element={<Jobs/>} />
       <Route exact path="/CompanyProfile" element={<CompanyProfile/>} />
+      <Route exact path="/Message" element={<Message/>} />
+      <Route exact path="/SendMessage" element={<SendMessage/>} />
+      <Route exact path="/SendReply" element={<SendReply/>} />
+      <Route exact path="/JobDetails" element={<JobDetails/>} />
+      <Route exact path="/Profile" element={<Profile/>} />
+      <Route exact path="/Meeting" element={<Meeting/>} />
 
     </Routes>
     </Router>

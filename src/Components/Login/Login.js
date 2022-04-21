@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,15 +24,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  toast.success('Login Successfully', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    }) 
   async function Login(e) {
     
     e.preventDefault();
@@ -42,23 +33,15 @@ const Login = () => {
        .post("auth/company/login", data)
        .then((resp) => {
          console.log(resp)
-         toast.success('Login Successfully', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          }) 
-         navigate("/LiveJobs");
+        
+         navigate("/Jobs");
          cookies.set("token", resp.data.user.token);
          cookies.set("id",resp.data.user.id);
         cookies.set("email",resp.data.user.email)
        })
        .catch((err) => {
          console.log(err);
-         toast.error("Some error occurred");
+       
        });
   }
  
@@ -108,7 +91,7 @@ const Login = () => {
           </div>
           <TextField
           className='w-full '
-          label="Enter Email ID/ Phone Number"
+          label="Enter Password"
           id="outlined-size-small"
           onChange={(e) => setPassword(e.target.value)}
           size="small"
