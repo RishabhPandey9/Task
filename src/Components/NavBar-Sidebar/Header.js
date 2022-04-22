@@ -249,6 +249,7 @@ const Header = () => {
             </div>
           </div>
           </Link>
+          <Link to="/Settings">
           <div
             className={`${
               window.location.pathname === "/help"
@@ -264,6 +265,7 @@ const Header = () => {
               </div>
             </div>
           </div>
+          </Link>
           <div
             className={`${
               window.location.pathname === "/help"

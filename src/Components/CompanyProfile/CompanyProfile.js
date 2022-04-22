@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Header from "../NavBar-Sidebar/Header";
-import { hiding, selectHeader, showing } from "../features/HeaderSlice";
-import { useSelector, useDispatch } from "react-redux";
-import comp from "./CompPng.png";
+import {  selectHeader } from "../features/HeaderSlice";
+import { useSelector} from "react-redux";
+
 import { AiFillStar } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import {FcGoogle} from "react-icons/fc"
 import {BsFacebook} from "react-icons/bs"
 import {BsLinkedin} from "react-icons/bs"
-import {RiShareForwardFill} from "react-icons/ri"
 import {AiOutlineEdit} from "react-icons/ai"
 import axios from "axios";
 import Cookies from "universal-cookie";
-
+import {BsFillDiamondFill} from "react-icons/bs"
 
 const cookies = new Cookies();
 
 const CompanyProfile = () => {
 
-    const [name,setName] =useState("")
-    const [founder,setFounder] =useState("")
-    const [ceo,setCoe] =useState("")
-    const [number,setNumber] =useState("")
-    const [location,setLocation] =useState("")
-    const [logo,setLogo] =useState("")
-    const [sector,setSector] =useState("")
+
     const [data,setData] =useState([])
         
     
@@ -90,7 +83,8 @@ const CompanyProfile = () => {
             </div>
             <div className="">
                 <div className="lg:flex mt-2 lg:mt-0 lg:space-x-4 lg:space-y-0 space-y-2">
-                    <div className=" flex justify-center bg-slate-100 px-4 py-2 rounded-lg font-semibold text-blue-600 text-sm">Share company profile <RiShareForwardFill className="ml-2 text-lg "/> </div>
+                    {/* <div className=" flex justify-center bg-slate-100 px-4 py-2 rounded-lg font-semibold text-blue-600 text-sm">Share company profile <RiShareForwardFill className="ml-2 text-lg "/> </div> */}
+                    <div className={`${items.status? "text-green-600":"text-gray-400 "} " flex justify-center bg-slate-100 px-4 py-2 rounded-lg font-semibold text-sm"`}><BsFillDiamondFill className=" mt-1 mr-2"/> {items.status? "Actively Hiring" :"In-Actively Hiring"}  </div>
                     <div className="flex justify-center bg-slate-100 px-4 py-2 rounded-lg font-semibold text-blue-600 text-sm">Edit <AiOutlineEdit className="ml-2 text-lg "/></div>
                 </div>
                 <div></div>

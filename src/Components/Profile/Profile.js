@@ -27,6 +27,7 @@ const Profile = () => {
         },
       })
       .then((resp) => {
+        console.log(resp.data)
         setEmail(resp.data.user.email)
         setId(resp.data.user.id)
         setName(resp.data.user.profile.name)
