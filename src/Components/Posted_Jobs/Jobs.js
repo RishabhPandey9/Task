@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../NavBar-Sidebar/Header'
-import { hiding, selectHeader, showing } from '../features/HeaderSlice';
-import { useSelector,useDispatch } from 'react-redux';
+import {  selectHeader} from '../features/HeaderSlice';
+import { useSelector} from 'react-redux';
 import Button from '@mui/material/Button';
 
 import {BsFillDiamondFill} from "react-icons/bs"
@@ -29,7 +29,7 @@ const Jobs = () => {
     
     const [active, setActive] = useState("All");
 
-    const dispatch = useDispatch();
+
     const Active = () =>{
       setActive("Active")
       setStatus("Active")

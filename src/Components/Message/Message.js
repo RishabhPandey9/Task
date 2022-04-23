@@ -203,7 +203,8 @@ const Message = () => {
             })}
             </tbody>
             ) : (
-              <Spinner/>
+              <div className='flex justify-center'><Spinner/></div>
+              
           )}
           
         </table>

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../NavBar-Sidebar/Header";
-import { hiding, selectHeader, showing } from "../features/HeaderSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { AiFillStar } from "react-icons/ai";
+import {  selectHeader} from "../features/HeaderSlice";
+import { useSelector } from "react-redux";
+
 import { GoLocation } from "react-icons/go";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
-import { BsLinkedin } from "react-icons/bs";
+
 import { RiShareForwardFill } from "react-icons/ri";
 import { AiOutlineEdit } from "react-icons/ai";
-import axios from "axios";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
 

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from "axios";
 // import {base_url} from "../../components/consts";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
@@ -31,7 +30,6 @@ const Settings = () => {
     const [active, setActive] = useState("btn1")
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
 
     const data = {
         old_password: oldPassword,

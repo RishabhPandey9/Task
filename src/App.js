@@ -15,6 +15,7 @@ import JobDetails from "./Components/Posted_Jobs/JobDetails";
 import Profile from "./Components/Profile/Profile";
 import Meeting from "./Components/Meeting/Meeting";
 import Settings from "./Components/Settings/Settings";
+import EditProfile from "./Components/Profile/EditProfile";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Route exact path="/SendReply" element={<SendReply/>} />
       <Route exact path="/JobDetails" element={<JobDetails/>} />
       <Route exact path="/Profile" element={<Profile/>} />
+      <Route exact path="/EditProfile" element={<EditProfile/>} />
       <Route exact path="/Meeting" element={<Meeting/>} />
       <Route exact path="/Settings" element={<Settings/>} />
 
