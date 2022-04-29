@@ -6,20 +6,31 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-const MeetModal = ({title, company, time, date, link, day, onClick, duration, end_time, start_date, meeting_password, note, clock}) => {
+
+const MeetModal = ({
+                       title,
+                       company,
+                       time,
+                       date,
+                       link,
+                       day,
+                       onClick,
+                       duration,
+                       end_time,
+                       start_time,
+                       meeting_password,
+                       note,
+                       clock
+                   }) => {
 
     const [sum, setSum] = useState("");
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-    };
+    // const style = {
+    //     transform: 'translate(-50%, -50%)',
+    //     bgcolor: 'background.paper',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
 
     const countDown = (time) => {
         var countDownDate = new Date(time).getTime();
@@ -50,35 +61,39 @@ const MeetModal = ({title, company, time, date, link, day, onClick, duration, en
         countDown(clock);
     }, [clock])
 
+    const meeting_date = new Date(date.slice(0,10))
+    const month = meeting_date.toLocaleString('default', {month: 'long'})
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <div className="relative">
-            <div className="bg-white px-3 pb-3 pt-16 rounded-lg space-y-3" onClick={handleOpen}>
+            <div className="bg-white px-3 pb-3 pt-16 rounded-lg space-y-3">
                 <Modal
                     open={open}
                     onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
+                    className="flex justify-center items-center"
                 >
-                    <Box sx={style} className="space-y-2">
-                        <Typography id="modal-modal-title" variant="h5" component="h2">
-                            Title: {title}
-                        </Typography>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Company: {company}
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{mt: 2}}>
-                            Note: {note}
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{mt: 2}}>
-                            Date: {start_date}
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{mt: 2}}>
-                            Time: {end_time}
-                        </Typography>
+                    <Box className="space-y-2 bg-white p-5 rounded-lg w-5/6 md:w-4/6 lg:w-2/6">
+                        <div>
+                            <Typography id="modal-modal-title" variant="h5" component="h2">
+                                Title: {title}
+                            </Typography>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Company: {company ? company : "null"}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{mt: 2}}>
+                                Note: {note}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{mt: 2}}>
+                                Date: {meeting_date.getDate()}&nbsp;{month.slice(0,3)}, {meeting_date.getFullYear()}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{mt: 2}}>
+                                Time: {start_time} - {end_time}
+                            </Typography>
+                        </div>
                     </Box>
                 </Modal>
                 {/*<div className="flex item-center justify-end space-x-4">*/}
@@ -117,13 +132,24 @@ const MeetModal = ({title, company, time, date, link, day, onClick, duration, en
                         </div>
                     )}
                     <div className="flex items-center justify-end">
-                        <Button variant="outlined">{sum ? sum : "Loading..."}</Button>
+                        {/*<Button variant="outlined">{sum ? sum : "Loading..."}</Button>*/}
+                        <Button variant="contained" onClick={handleOpen}>Details</Button>
                     </div>
                 </div>
             </div>
             <div
-                className="flex items-center justify-center bg-blue-200 w-24 h-12 text-base font-semibold absolute top-0 left-0 rounded-br-lg">
-                <span>{day}</span>
+                className="  ">
+                <div
+                    className="absolute top-0 left-0 flex items-center justify-center
+                        bg-blue-200 w-24 h-12 text-base font-semibold rounded-br-lg rounded-tl-lg"
+                >
+                    {day}
+                </div>
+                <p className="absolute top-0 right-0 flex items-center justify-center
+                    w-24 h-12 cursor-default bg-[#F1F1F1]"
+                >
+                    {sum ? sum : "Loading..."}
+                </p>
             </div>
         </div>
     );

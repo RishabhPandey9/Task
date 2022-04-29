@@ -15,6 +15,7 @@ import {ImLocation2} from "react-icons/im"
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom"
 
 
 const cookies = new Cookies();
@@ -27,7 +28,7 @@ const Jobs = () => {
     const [data, setData] = useState([]);
     const [jobs,setJobs] =useState([])
     
-    const [active, setActive] = useState("All");
+    const [active, setActive] = useState("Active");
 
 
     const Active = () =>{
@@ -59,24 +60,7 @@ const Jobs = () => {
           console.log(err);
         });
     }
-    async function getJob(id) {
-      await axios
-        .get(`hri_company/jobs/${id}`, {
-          headers: {
-            Authorization: "Token " + cookies.get("token"),
-          },
-        })
-        .then((resp) => {
-         
-         navigate("/JobDetails");
-         setJobs(resp.data)
-         cookies.set("jobs",jobs)
-         
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+   
     
       
     useEffect(() => {
@@ -115,7 +99,9 @@ const Jobs = () => {
                 :<div onClick={Old} className={!currentState?.show?'p-3 rounded-lg lg:py-5 xl:py-3 cursor-pointer md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Old Job Posts</div>}
             </div>
             <div className={!currentState?.show?'mt-1 mr-2 md:mt-3 lg:mt-4 md:mr-3 lg:mr-10':'mt-1 mr-2 md:mt-4 md:mr-10'} >
+           <Link to="/AddNewPosition">
             <Button className='w-auto ' size="small" variant="contained">Add New Position</Button>
+            </Link>
             </div>
             </div>    
             <div  className='mt-5 pb-10 px-4 md:px-10'>
@@ -124,13 +110,16 @@ const Jobs = () => {
                const date = new Date(user.updated_at.slice(0,10))
                const month = date.toLocaleString('default', { month: 'long' });
                const myArray = user.skills.split(",");
+               
                return (
             
             
-            <div key={user.id} onClick={() => getJob(user.id)} className='bg-white pt-5 px-5 rounded-lg cursor-pointer hover:bg-slate-100'>
+            <div key={user.id} onClick={() => {navigate("/JobDetails"); cookies.set("jobId",user.id)}} className='bg-white pt-5 px-5 rounded-lg cursor-pointer hover:bg-slate-100'>
               <div className='md:flex justify-between'>
                 <div className='text-lg font-semibold '>{user.position_name}</div>
-                <div className='flex text-green-400 mt-2 md:mt-0'><BsFillDiamondFill className='mt-1 mr-1'/> <div className='font-semibold'>Active </div><RiArrowDropDownLine className='text-black text-2xl'/></div>
+                {user.is_active?
+                  <div className='flex text-green-400 mt-2 md:mt-0'><BsFillDiamondFill className='mt-1 mr-1'/> <div className='font-semibold'>Active </div><RiArrowDropDownLine className='text-black text-2xl'/></div>
+                :<div className='flex text-red-500 mt-2 md:mt-0'><BsFillDiamondFill className='mt-1 mr-1'/> <div className='font-semibold'>Completed </div><RiArrowDropDownLine className='text-black text-2xl'/></div>}
               </div>
               <div className='flex text-sm space-x-4 mt-5'>
                 <div className='flex'><IoBriefcaseOutline className='text-lg mr-2 text-gray-400'/>{user.experience}</div>

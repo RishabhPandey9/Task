@@ -9,7 +9,6 @@ import {BsGithub} from "react-icons/bs"
 import { AiOutlineEdit } from "react-icons/ai";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import logo from "../NavBar-Sidebar/HRI_Company_logo.png"
 import { Link } from "react-router-dom";
 
 const cookies = new Cookies();
@@ -39,6 +38,7 @@ const Profile = () => {
         setEmail(resp.data.user.email)
         setId(resp.data.user.id)
         setName(resp.data.user.profile.name)
+        cookies.set("profileName",resp.data.user.profile.name)
         setPhone(resp.data.user.profile.otp_phone)
         setDob(resp.data.user.profile.dob)
         setEmpId(resp.data.user.profile.employee_id)
@@ -46,6 +46,7 @@ const Profile = () => {
         setGender(resp.data.user.profile.gender)
         setAbout(resp.data.user.profile.about_you)
         setImage(resp.data.user.profile.image)
+        cookies.set("profileImage",resp.data.user.profile.image)
         cookies.set("otp",resp.data.user.profile.otp)
         cookies.set("id",resp.data.user.profile.id)
       })
@@ -138,24 +139,7 @@ const Profile = () => {
                 <div></div>
               </div>
             </div>
-            <div className="border-b-2 mt-8 border-gray-500"/>
-            <div>
-              <div className="md:ml-[120px] text-center md:text-left  text-xl font-bold mt-8">Company details</div>
-              <div className=" md:ml-[120px] text-center md:text-left  mt-5 md:flex md:space-x-16">
-                <div >
-                  <div className="text-gray-400 font-semibold ">Company Logo</div>
-                  <div className="flex justify-center mt-2"><img src={logo} alt=""/></div>
-                </div>
-                <div>
-                  <div className="text-gray-400 font-semibold mb-2 mt-6 md:mt-0">Company Name</div>
-                  <div className="  text-xl">Company name</div>
-                </div>
-                <div>
-                  <div className="text-gray-400 font-semibold mb-2 mt-6 md:mt-0">Company Name</div>
-                  <div className="  text-xl">Company Tagline shown here</div>
-                </div>
-              </div>
-            </div>
+          
        </div>
           </div>
          </div>

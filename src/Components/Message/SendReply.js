@@ -1,84 +1,34 @@
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
-import Avatar from "@mui/material/Avatar";
-
-
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { styled } from "@mui/material/styles";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputBase from "@mui/material/InputBase";
 import moment from "moment";
-import { hiding, selectHeader, showing } from '../features/HeaderSlice';
-import { useSelector,useDispatch } from 'react-redux';
+import {  selectHeader} from '../features/HeaderSlice';
+import { useSelector} from 'react-redux';
 import Header from "../NavBar-Sidebar/Header"
-import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Cookies from "universal-cookie";
 import {IoPersonCircleOutline} from "react-icons/io5"
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+
 
 const cookies = new Cookies();
 
 
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 const SendReply = () => {
 
   const currentState = useSelector(selectHeader);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const [type, setType] = React.useState("username");
-
-  const [reciever_id, setReciever_id] = React.useState("")
-  const [message_title, setMessageTitle] = React.useState("");
-  const [message_body, setMessageBody] = React.useState("");
-  
-
-  console.log(reciever_id, "reciener_id is ")
-
-
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
+ 
 
  
 
 
-  React.useEffect(() => {
+   useEffect(() => {
     axios
       .get("hri_company/adminemail", {
         headers: {
@@ -95,10 +45,9 @@ const SendReply = () => {
 
   const date = new Date();
   const newDate = moment(date).format("YYYY-MM-DD");
-  const [header, setHeader] = React.useState("");
-  const [data, setData] = React.useState([]);
-  const [discribe, setDiscribe] = React.useState("");
-  const [userId, setUserId] = React.useState("");
+  const [header, setHeader] =  useState("");
+  const [data, setData] =  useState([]);
+  const [discribe, setDiscribe] =  useState("");
   const headers = {
     Authorization: "Token " + cookies.get("token"),
   };
@@ -121,20 +70,19 @@ const SendReply = () => {
         }
       )
       .then((resp) => {
+        navigate("/Message")
+
         console.log(resp);
-        navigate("/CompanyProfile")
         navigate({
           state: { token: resp.data.token },
-          
+          path: "/Message"
         });
       })
       .catch((err) => {
         console.log(err);
       });
   }
-  const addChange = (e) => {
-    setUserId(e.target.value);
-  };
+
 
   return (
     <>

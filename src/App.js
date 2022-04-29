@@ -13,9 +13,16 @@ import SendMessage from "./Components/Message/SendMessage";
 import SendReply from "./Components/Message/SendReply";
 import JobDetails from "./Components/Posted_Jobs/JobDetails";
 import Profile from "./Components/Profile/Profile";
-import Meeting from "./Components/Meeting/Meeting";
 import Settings from "./Components/Settings/Settings";
 import EditProfile from "./Components/Profile/EditProfile";
+import CompanyEdit from "./Components/CompanyProfile/CompanyEdit";
+import ProfileSharedByAdmin from "./Components/ProfileSharedByAdmin/ProfileSharedByAdmin";
+import AddNewPosition from "./Components/Posted_Jobs/AddNewPosition";
+import ProfileSharedByAdminDetails from "./Components/ProfileSharedByAdmin/ProfileSharedByAdminDetails";
+import EditJobDetails from "./Components/Posted_Jobs/EditJobDetails";
+import Meeting from "./Components/Meeting/Meeting";
+import { Upcoming } from "@mui/icons-material";
+import Previous from "./Components/Meeting/Previous";
 
 
 function App() {
@@ -29,14 +36,20 @@ function App() {
       <Route exact path="/ChangePass" element={<ChangePass/>} />
       <Route exact path="/Jobs" element={<Jobs/>} />
       <Route exact path="/CompanyProfile" element={<CompanyProfile/>} />
+      <Route exact path="/CompanyEdit" element={<CompanyEdit/>} />
       <Route exact path="/Message" element={<Message/>} />
       <Route exact path="/SendMessage" element={<SendMessage/>} />
       <Route exact path="/SendReply" element={<SendReply/>} />
       <Route exact path="/JobDetails" element={<JobDetails/>} />
+      <Route exact path="/EditJobDetails" element={<EditJobDetails/>} />
       <Route exact path="/Profile" element={<Profile/>} />
       <Route exact path="/EditProfile" element={<EditProfile/>} />
-      <Route exact path="/Meeting" element={<Meeting/>} />
+      <Route path="/schedule_meets/*" element={<Meeting/>} />
       <Route exact path="/Settings" element={<Settings/>} />
+      <Route exact path="/ProfileShearedByAdmin" element={<ProfileSharedByAdmin/>} />
+      <Route exact path="/ProfileShearedByAdminDetails" element={<ProfileSharedByAdminDetails/>} />
+      <Route exact path="/AddNewPosition" element={<AddNewPosition/>} />
+  
 
     </Routes>
     </Router>

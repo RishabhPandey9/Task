@@ -21,12 +21,17 @@ import { hiding, selectHeader, showing } from "../features/HeaderSlice";
 import { HiOutlineMenu } from "react-icons/hi";
 import { MdOutlineClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+
+
+const cookies = new Cookies();
 
 const Header = () => {
   const dispatch = useDispatch();
   const currentState = useSelector(selectHeader);
 
   const [nav, setNav] = useState(true);
+  const [active,setActive] = useState("Posted Jobs")
 
   const visible = () => {
     setNav(!nav);
@@ -41,7 +46,7 @@ const Header = () => {
       dispatch(hiding());
     }
   };
-  useEffect(() => {}, [nav]);
+  useEffect(() => {}, [nav,active]);
   return (
     <>
       <div className=" z-10 bg-white flex justify-between border-b-4  w-auto h-auto sticky top-0 ">
@@ -78,15 +83,15 @@ const Header = () => {
             <div className="">
               {" "}
               <Avatar
-                src={profile}
-                className=" mr-4 md:mr-0 border-2 border-slate-400"
+                src={cookies.get("profileImage")}
+                className=" mr-4 md:mr-0 border-2 border-slate-500"
               />
             </div>
             <div className="hidden md:flex">
               <div>
                 {" "}
-                <div className="text-xs font-semibold   md:text-base lg:text-lg md:w-28 mt-2">
-                  Maro Mamu
+                <div className="text-xs font-semibold   md:text-base lg:text-lg w-full mt-2">
+                  {cookies.get("profileName")}
                 </div>
               </div>
               <div>
@@ -100,14 +105,15 @@ const Header = () => {
       <nav
         className={
           nav
-            ? " z-10 overflow-y-auto w-72 bg-white fixed sidebar_parent_div  pl-5 pr-5 pt-2 border-r-4  h-full  ease-in duration-300 "
-            : " z-10 w-72 bg-white overflow-y-auto fixed  h-full  transform -translate-x-full ease-in duration-300"
+            ? " z-10 overflow-y-auto w-72 bg-white fixed sidebar_parent_div  pl-5 pr-5 pt-2  border-r-4  h-full  ease-in duration-300 "
+            : " z-10 w-72 bg-white overflow-y-auto fixed  h-full  transform -translate-x-full space-y-4 ease-in duration-300"
         }
       >
-        <div className=" sidebar_options_div hover:rounded text-sm text-gray-600 lg:space-y-3 mx-3 ">
+        <div className="flex flex-col sidebar_options_div hover:rounded text-sm text-gray-600 space-y-1 mx-3 ">
+          <div>
           <Link to="/Jobs">
-            <div className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700">
-              <RiDashboardFill className="text-xl option_icon" />
+            <div onClick={() => setActive("Posted Jobs")} className={`${active === "Posted Jobs"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}>
+              <RiDashboardFill className="text-xl hover:text-sky-700 option_icon" />
               <div className="option_title">
                 <div className="single_option_anchor hover:text-sky-700">
                   Posted Jobs
@@ -115,31 +121,10 @@ const Header = () => {
               </div>
             </div>
           </Link>
-
+          </div>
+          <Link to="/ProfileShearedByAdmin" >
           <div
-            className={`single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700
-                    ${
-                      window.location.pathname === "/messages"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    } 
-                    ${
-                      window.location.pathname ===
-                      "/messages/message-details/view-more"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    } 
-                    ${
-                      window.location.pathname ===
-                      "/messages/message-details/reply-message"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    }
-                    ${
-                      window.location.pathname === "/messages/send-message"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    }`}
+            onClick={() => setActive("Profiles shared by admins")} className={`${active === "Profiles shared by admins"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
           >
             <AiOutlineUserAdd className=" text-xl option_icon" />
             <div className="option_title ">
@@ -148,47 +133,11 @@ const Header = () => {
               </div>
             </div>
           </div>
-
-          <div
-            className={`single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700
-                    ${
-                      window.location.pathname === "/messages"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    } 
-                    ${
-                      window.location.pathname ===
-                      "/messages/message-details/view-more"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    } 
-                    ${
-                      window.location.pathname ===
-                      "/messages/message-details/reply-message"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    }
-                    ${
-                      window.location.pathname === "/messages/send-message"
-                        ? "bg-[#F1F1F1] text-sky-700"
-                        : ""
-                    }`}
-          >
-            <HiUserGroup className="text-xl option_icon" />
-            <div className="option_title ">
-              <div className="single_option_anchor  hover:text-sky-700">
-                Manage Employees
-              </div>
-            </div>
-          </div>
+          </Link>
+          
           <Link to="/CompanyProfile">
             <div
-              className={`${
-                window.location.pathname === "/schedule_meets"
-                  ? "bg-[#F1F1F1] text-sky-700"
-                  : ""
-              } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+              onClick={() => setActive("Company Profile")} className={`${active === "Company Profile"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
             >
               <RiProfileLine className="text-xl option_icon" />
               <div className="option_title">
@@ -200,12 +149,7 @@ const Header = () => {
           </Link>
           <Link to="/Profile">
             <div
-              className={`${
-                window.location.pathname === "/profile/settings"
-                  ? "bg-[#F1F1F1] text-sky-700"
-                  : ""
-              } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+              onClick={() => setActive("My Profile")} className={`${active === "My Profile"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
             >
               <IoMdPerson className="text-xl option_icon" />
               <div className="option_title">
@@ -217,12 +161,7 @@ const Header = () => {
           </Link>
           <Link to="/Message">
             <div
-              className={`${
-                window.location.pathname === "/help"
-                  ? "bg-[#F1F1F1] text-sky-700"
-                  : ""
-              } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+              onClick={() => setActive("Message")} className={`${active === "Message"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
             >
               <MdMessage className="text-xl option_icon" />
               <div className="option_title">
@@ -232,14 +171,9 @@ const Header = () => {
               </div>
             </div>
           </Link>
-          <Link to="/Meeting">
+          <Link to="/schedule_meets">
           <div
-            className={`${
-              window.location.pathname === "/"
-                ? "bg-[#F1F1F1] text-sky-700"
-                : ""
-            } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+            onClick={() => setActive("Schedule meets")} className={`${active === "Schedule meets"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
           >
             <BiNotepad className="text-xl option_icon" />
             <div className="option_title">
@@ -251,12 +185,7 @@ const Header = () => {
           </Link>
           <Link to="/Settings">
           <div
-            className={`${
-              window.location.pathname === "/help"
-                ? "bg-[#F1F1F1] text-sky-700"
-                : ""
-            } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+            onClick={() => setActive("Setting")} className={`${active === "Setting"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
           >
             <AiTwotoneSetting className="text-xl option_icon" />
             <div className="option_title">
@@ -266,13 +195,9 @@ const Header = () => {
             </div>
           </div>
           </Link>
+          <Link to="/Help"> 
           <div
-            className={`${
-              window.location.pathname === "/help"
-                ? "bg-[#F1F1F1] text-sky-700"
-                : ""
-            } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700`}
+            onClick={() => setActive("Help")} className={`${active === "Help"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
           >
             <FiHelpCircle className="text-xl option_icon" />
             <div className="option_title">
@@ -281,18 +206,14 @@ const Header = () => {
               </div>
             </div>
           </div>
+          </Link>
           <Link to="/">
             <div
-              className={`${
-                window.location.pathname === "/help"
-                  ? "bg-[#F1F1F1] text-sky-700"
-                  : ""
-              } 
-                    single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-red-600`}
+              onClick={() => setActive("Logout")} className={`${active === "Logout"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer mt-8 font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
             >
               <BiLogOut className="text-xl option_icon" />
               <div className="option_title">
-                <div className="single_option_anchor hover:text-sky-700">
+                <div className="single_option_anchor ">
                   Logout
                 </div>
               </div>

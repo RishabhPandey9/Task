@@ -89,8 +89,8 @@ const Message = () => {
         <Header/>
         
         <div className='bg-gray-100 w-full h-auto '>
-    <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
-    <div className=" bg-white w-full  lg:flex justify-between">
+    <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 h-auto' : ' ease-in  duration-300 h-auto ml-0 '}>
+    <div className=" bg-white w-full  h-auto lg:flex justify-between">
     <div className={!currentState?.show?'bg-white flex  space-x-1 text-xs md:text-xs lg:text-xl  font-semibold p-1 text-gray-600  md:p-2 ':"bg-white space-x-1 flex  lg:space-x-4 text-xs md:text-lg xl:text-xl  font-semibold p-1 text-gray-600  md:p-2 "}>
                 {active === "All"?
                     <div onClick={all} className={!currentState?.show?'p-3 cursor-pointer rounded-lg lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>All</div>
