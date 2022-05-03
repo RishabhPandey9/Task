@@ -88,7 +88,7 @@ const Message = () => {
     <>
         <Header/>
         
-        <div className='bg-gray-100 w-full h-auto '>
+        <div className='bg-gray-100 w-full h-auto mt-[68px] '>
     <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 h-auto' : ' ease-in  duration-300 h-auto ml-0 '}>
     <div className=" bg-white w-full  h-auto lg:flex justify-between">
     <div className={!currentState?.show?'bg-white flex  space-x-1 text-xs md:text-xs lg:text-xl  font-semibold p-1 text-gray-600  md:p-2 ':"bg-white space-x-1 flex  lg:space-x-4 text-xs md:text-lg xl:text-xl  font-semibold p-1 text-gray-600  md:p-2 "}>

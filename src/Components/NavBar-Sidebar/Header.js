@@ -5,7 +5,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import logo from "./HRI_Company_logo.png";
 import profile from "./profile.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
@@ -46,10 +46,16 @@ const Header = () => {
       dispatch(hiding());
     }
   };
+  let activeStyle = {
+    backgroundColor: "rgb(241,245,249)",
+    color: "#1B77AA",
+    borderRadius: "5px",
+  };
+
   useEffect(() => {}, [nav,active]);
   return (
     <>
-      <div className=" z-10 bg-white flex justify-between border-b-4  w-auto h-auto sticky top-0 ">
+      <div  className=" z-10 bg-white flex justify-between border-b-4  w-full h-auto fixed  top-0 ">
         <div className=" md:space-x-1  mx-4 md:mx-5 mb-2 flex  ">
           <div className="header_nav_icon_div my-4 cursor-pointer ">
             {nav ? (
@@ -111,20 +117,24 @@ const Header = () => {
       >
         <div className="flex flex-col sidebar_options_div hover:rounded text-sm text-gray-600 space-y-1 mx-3 ">
           <div>
-          <Link to="/Jobs">
-            <div onClick={() => setActive("Posted Jobs")} className={`${active === "Posted Jobs"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}>
-              <RiDashboardFill className="text-xl hover:text-sky-700 option_icon" />
+          <NavLink to="/Jobs" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
+            <div className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700">
+              <RiDashboardFill className=" text-xl option_icon"/>
               <div className="option_title">
                 <div className="single_option_anchor hover:text-sky-700">
                   Posted Jobs
                 </div>
               </div>
             </div>
-          </Link>
+          </NavLink>
           </div>
-          <Link to="/ProfileShearedByAdmin" >
+          <NavLink to="/ProfileShearedByAdmin" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
           <div
-            onClick={() => setActive("Profiles shared by admins")} className={`${active === "Profiles shared by admins"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+             className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
           >
             <AiOutlineUserAdd className=" text-xl option_icon" />
             <div className="option_title ">
@@ -133,11 +143,13 @@ const Header = () => {
               </div>
             </div>
           </div>
-          </Link>
+          </NavLink>
           
-          <Link to="/CompanyProfile">
+          <NavLink to="/CompanyProfile" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
             <div
-              onClick={() => setActive("Company Profile")} className={`${active === "Company Profile"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+               className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
             >
               <RiProfileLine className="text-xl option_icon" />
               <div className="option_title">
@@ -146,10 +158,12 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </Link>
-          <Link to="/Profile">
+          </NavLink>
+          <NavLink to="/Profile" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
             <div
-              onClick={() => setActive("My Profile")} className={`${active === "My Profile"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+               className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
             >
               <IoMdPerson className="text-xl option_icon" />
               <div className="option_title">
@@ -158,10 +172,12 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </Link>
-          <Link to="/Message">
+          </NavLink>
+          <NavLink to="/Message" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
             <div
-              onClick={() => setActive("Message")} className={`${active === "Message"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+               className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
             >
               <MdMessage className="text-xl option_icon" />
               <div className="option_title">
@@ -170,10 +186,12 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </Link>
-          <Link to="/schedule_meets">
+          </NavLink>
+          <NavLink to="/schedule_meets/upcoming" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
           <div
-            onClick={() => setActive("Schedule meets")} className={`${active === "Schedule meets"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+            className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
           >
             <BiNotepad className="text-xl option_icon" />
             <div className="option_title">
@@ -182,10 +200,12 @@ const Header = () => {
               </div>
             </div>
           </div>
-          </Link>
-          <Link to="/Settings">
+          </NavLink>
+          <NavLink to="/Settings" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
           <div
-            onClick={() => setActive("Setting")} className={`${active === "Setting"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+           className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
           >
             <AiTwotoneSetting className="text-xl option_icon" />
             <div className="option_title">
@@ -194,10 +214,12 @@ const Header = () => {
               </div>
             </div>
           </div>
-          </Link>
-          <Link to="/Help"> 
+          </NavLink>
+          <NavLink to="/HelpFaq" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
           <div
-            onClick={() => setActive("Help")} className={`${active === "Help"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+           className="single_option_div p-3 cursor-pointer font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
           >
             <FiHelpCircle className="text-xl option_icon" />
             <div className="option_title">
@@ -206,10 +228,12 @@ const Header = () => {
               </div>
             </div>
           </div>
-          </Link>
-          <Link to="/">
+          </NavLink>
+          <NavLink to="/" style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }>
             <div
-              onClick={() => setActive("Logout")} className={`${active === "Logout"? "bg-slate-100 rounded text-sky-700" :"" }"single_option_div p-3 cursor-pointer mt-8 font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"`}
+               className="single_option_div p-3 cursor-pointer mt-8 font-semibold flex space-x-2 hover:bg-slate-100 hover:rounded hover:text-sky-700"
             >
               <BiLogOut className="text-xl option_icon" />
               <div className="option_title">
@@ -218,7 +242,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </Link>
+          </NavLink>
         </div>
       </nav>
     </>

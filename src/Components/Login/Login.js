@@ -1,9 +1,7 @@
 import LogImg from "./LoginImg.png";
 import React, { useState } from "react";
 
-import TextField from "@mui/material/TextField";
 
-import Button from "@mui/material/Button";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { BsApple } from "react-icons/bs";
@@ -11,7 +9,18 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField
+} from "@mui/material";
 
 const cookies = new Cookies();
 
@@ -38,6 +47,29 @@ const Login = () => {
         console.log(err);
       });
   }
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+});
+
+
+const handleClickShowPassword = () => {
+    setValues({
+        ...values,
+        showPassword: !values.showPassword,
+    });
+};
+
+const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+};
+
+
+
+
 
   return (
     <>
@@ -72,7 +104,7 @@ const Login = () => {
           <div className="border-2 w-full py-5 px-5 md:w-1/2  rounded-lg border-blue-600 md:ml-20">
             <div className="grid grid-cols-1 gap-y-4">
               <div className="font-bold text-lg lg:text-2xl xl:text-3xl">
-                Login as Admin
+              Login as Recruiter
               </div>
               <div className="xl:mt-6">
                 <TextField
@@ -83,13 +115,36 @@ const Login = () => {
                   size="small"
                 />
               </div>
-              <TextField
-                className="w-full "
-                label="Enter Password"
-                id="outlined-size-small"
-                onChange={(e) => setPassword(e.target.value)}
-                size="small"
-              />
+            
+              <div className="">
+                                        <FormControl variant="outlined" className="w-full">
+                                            <InputLabel htmlFor="outlined-adornment-password" className="">
+                                                <div className="mt-[-5px]">Enter Your Password</div>
+                                            </InputLabel>
+                                            <OutlinedInput
+                                                label="Current Password"
+                                                className="w-full"
+                                                type={values.showPassword ? 'text' : 'password'}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                size="small"
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            type={values.showPassword ? 'text' : 'password'}
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            size="small"
+                                                        >
+                                                            {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                                required
+                                            />
+                                        </FormControl>
+                                    </div>
               <div className="grid justify-end">
                 <Link to="/ForgotPass">
                   <div className="text-sm text-slate-500 cursor-pointer">

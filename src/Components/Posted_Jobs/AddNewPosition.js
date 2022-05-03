@@ -99,7 +99,7 @@ const AddNewPosition = () => {
     <>
       <Header />
 
-      <div className="pt-4 pb-20  bg-gray-100 px-4     w-full h-auto">
+      <div className="pt-4 pb-20  bg-gray-100 px-4 mt-[68px]    w-full h-auto">
         <div
           className={
             !currentState?.show

@@ -114,6 +114,7 @@ const CompanyEdit = () => {
           company_ceo: ceo,
           company_employee: emp,
           company_description: compDetails,
+          
         },
         {
           headers: {
@@ -136,7 +137,7 @@ const CompanyEdit = () => {
   return (
     <>
       <Header />
-      <div className="pt-5 pb-20  bg-gray-100 px-4  md:px-10   w-full h-auto">
+      <div className="pt-5 pb-20 mt-[68px] bg-gray-100 px-4  md:px-10   w-full h-auto">
         <div
           className={
             !currentState?.show

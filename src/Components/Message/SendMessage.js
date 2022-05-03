@@ -86,7 +86,7 @@ const SendMessage = () => {
   return (
     <>
     <Header/>
-    <div className='bg-gray-100 w-full h-auto'>
+    <div className='bg-gray-100 w-full mt-[68px] h-auto'>
         <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
     <div className=" h-screen overflow-y-scroll">
 

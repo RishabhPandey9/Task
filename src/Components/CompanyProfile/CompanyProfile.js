@@ -83,7 +83,7 @@ const CompanyProfile = () => {
      
           <div
            
-            className="pt-5 pb-20  bg-gray-100 px-4  md:px-10   w-full h-auto"
+            className="pt-5 pb-20  bg-gray-100 px-4 mt-[68px]  md:px-10   w-full h-auto"
           >
             <div
               className={

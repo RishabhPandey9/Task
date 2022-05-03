@@ -84,7 +84,7 @@ const Jobs = () => {
         <Header/>
         
        
-        <div className='bg-gray-100 w-full h-auto'>
+        <div className='bg-gray-100 w-full h-auto mt-[68px]'>
         <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
            <div className='flex bg-white   justify-between'>
            <div className={!currentState?.show?'bg-white flex  lg:space-x-4 text-xs md:text-xs lg:text-xl  font-semibold p-1 text-gray-600  md:p-2 ':"bg-white flex  lg:space-x-4 text-xs md:text-lg lg:text-xl  font-semibold p-1 text-gray-600  md:p-2 "}>

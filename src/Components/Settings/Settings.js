@@ -226,7 +226,7 @@ const Settings = () => {
     return (
         <>
         <Header/>
-        <div className='bg-gray-100 w-full h-auto'>
+        <div className='bg-gray-100 w-full h-auto mt-[68px]'>
         <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
         <div className="py-3 px-3">
 
