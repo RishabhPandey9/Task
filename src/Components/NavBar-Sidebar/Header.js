@@ -224,7 +224,7 @@ const Header = () => {
             <FiHelpCircle className="text-xl option_icon" />
             <div className="option_title">
               <div className="single_option_anchor hover:text-sky-700">
-                Help
+                Help & FAQ
               </div>
             </div>
           </div>

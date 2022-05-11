@@ -144,19 +144,15 @@ const EditProfile = () => {
               </div>
                  </div>
                  <div className=' w-full mx-10  ml-[-10px]'>
-                   <div className='flex space-x-10 xl:space-x-20'>
-                     <div className='space-y-4'>
+                   <div className='grid md:grid-cols-2 gap-y-4 gap-x-4'>
+                   
                        <div>
                        <div className="">
                    
                     <div className='text-gray-400 font-semibold' >Full Name</div>
                
                 <TextField
-                  className={
-                    !currentState?.show
-                      ?"w-full  "
-                      : "w-full xl:w-80 "
-                  }
+                   className="w-full "
                   value={name}
                   id="outlined-size-small"
                   onChange={(e) => setName(e.target.value)}
@@ -174,7 +170,7 @@ const EditProfile = () => {
                   size="small"
                 />
               </div></div>
-                       <div>
+                      
                           <div className="">
                           <div className='text-gray-400  font-semibold' >Date of Birth</div>
                 <TextField
@@ -185,7 +181,7 @@ const EditProfile = () => {
                   size="small"
                 />
               </div>
-              <div className=" mt-4">
+             <div>
                           <div className='text-gray-400  font-semibold' >Contact</div>
                 <TextField
                   className="w-full "
@@ -194,24 +190,21 @@ const EditProfile = () => {
                   onChange={(e) => setPhone(e.target.value)}
                   size="small"
                 />
-              </div></div>
-                     </div>
-                     <div className='space-y-4'>
-                     <div> <div className="">
+              </div>
+              
+                    
+                    
+                      <div className="">
                           <div className='text-gray-400 font-semibold' >Employee ID</div>
                 <TextField
-                  className={
-                    !currentState?.show
-                      ?"w-full  "
-                      : "w-full xl:w-80 "
-                  }
+                  className="w-full "
                   value={empId}
                   id="outlined-size-small"
                   onChange={(e) => setEmpId(e.target.value)}
                   size="small"
                 />
-              </div></div>
-                       <div>  <div className="">
+              </div>
+                       <div className="">
                           <div className='text-gray-400 font-semibold' >Designation</div>
                 <TextField
                   className="w-full "
@@ -220,8 +213,8 @@ const EditProfile = () => {
                   onChange={(e) => setRole(e.target.value)}
                   size="small"
                 />
-              </div></div>
-                       <div>  <div className="">
+              </div>
+                         <div className="">
                           <div className='text-gray-400 font-semibold' >Gender</div>
                 <TextField
                   className="w-full "
@@ -230,9 +223,9 @@ const EditProfile = () => {
                   onChange={(e) => setGender(e.target.value)}
                   size="small"
                 />
-              </div></div>
-                     </div>
-                   </div>
+              </div>
+              </div>
+                   
                    <div className='mt-10'>
                    <div className='text-gray-400 font-semibold' >About You</div>
                    <div className='lg:pr-20'>

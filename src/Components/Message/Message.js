@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import {MdDelete} from 'react-icons/md'
+import logoMessage from './logoMessage.jpeg'
 
 import { MdArrowBackIos } from "react-icons/md";
 
@@ -63,12 +65,27 @@ const Message = () => {
         console.log(err);
       });
   };
+  async function deleteMessage(id) {
+    console.log(id)
+    await axios
+      .get(`hri_company/message/delete/${id}`, {
+        headers: {
+          Authorization: "Token " + cookies.get("token"),
+        },
+      })
+      .then((resp) => {
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      getData()
+  };
   
     useEffect(() => {
       
         getData();
     
-  }, [toDate, fromDate,status]);
+  }, [ toDate, fromDate,status ]);
 
   const all = () =>{
     setActive("All")
@@ -96,11 +113,11 @@ const Message = () => {
                     <div onClick={all} className={!currentState?.show?'p-3 cursor-pointer rounded-lg lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>All</div>
                 :<div onClick={all} className={!currentState?.show?'p-3 rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>All</div>}
                 {active === "un-read"?
-                    <div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>un-read</div>
-                :<div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>un-read</div>}
+                    <div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Un-Read</div>
+                :<div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Un-Read</div>}
                 {active === "sent"?
-                    <div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>sent</div> 
-                :<div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 xl:py-3 cursor-pointer md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>sent</div>}
+                    <div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Sent</div> 
+                :<div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 xl:py-3 cursor-pointer md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Sent</div>}
 
                 
                    
@@ -145,6 +162,7 @@ const Message = () => {
         <div className='pt-4 bg-gray-100 px-4 md:px-10   w-full h-screen'>
         <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
         <div className='overflow-auto  rounded-lg shadow  mb-20'>
+        {data.length ? (
         <table className="w-full ">
           <thead className="bg-slate-200 border-b-2 border-gray-200">
             <tr className='text-blue-700 '>
@@ -160,10 +178,13 @@ const Message = () => {
               <th className="w-24 p-3 text-lg font-semibold tracking-wide text-center">
                 Details
               </th>
+              <th className="w-24 p-3 text-lg font-semibold tracking-wide text-center">
+                Delete
+              </th>
             </tr>
           </thead>
           
-          {data.length ? (
+       
             <tbody className="divide-y divide-gray-100 text-center">
             {data.map((user) => {
               cookies.set("id",user.id)
@@ -174,9 +195,7 @@ const Message = () => {
                 <tr
                   
                   key={user.id}
-                  onClick={() => getMessage(user.id)}
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModalCenter"
+                 
                   className="bg-white cursor-pointer hover:bg-slate-100"
                   
                 >
@@ -196,18 +215,27 @@ const Message = () => {
                    {date.getFullYear()}
                   </td>
                   <td className="p-3  text-base text-gray-700 whitespace-nowrap">
-                    <div className='bg-slate-100  py-2 rounded-lg text-blue-600 '> View Message </div>
+                    <div  onClick={() => getMessage(user.id)}
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalCenter" className='bg-slate-100  py-2 rounded-lg text-blue-600 hover:bg-slate-300 hover:text-blue-700 '> View Message </div>
+                  </td>
+                  <td className="p-3 text-center  text-base text-gray-700 whitespace-nowrap">
+                   <div onClick={() => {deleteMessage(user.id);  }} className='flex justify-center'> <MdDelete className='text-2xl text-red-500 hover:text-3xl'/></div>
+                  
                   </td>
                 </tr>
               )}
             })}
             </tbody>
+            </table>
             ) : (
-              <div className='flex justify-center'><Spinner/></div>
+              <div className='flex justify-center w-full'>
+                <div className='flex justify-center w-full'><Spinner/></div>
+                </div>
               
           )}
           
-        </table>
+       
         <div
           className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
           id="exampleModalCenter"
@@ -232,7 +260,7 @@ const Message = () => {
               </div>
               <div className="modal-header flex flex-shrink-0 items-center p-4  rounded-t-md">
                 <div >
-                <img className="w-10 h-10 rounded-full" src={cookies.get("image")} alt="" />
+                <img className="w-10 h-10 rounded-full" src={logoMessage} alt="" />
                
                 </div>
                 <div

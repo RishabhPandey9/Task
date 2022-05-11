@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getRequest} from "./Request";
 import MeetModal from "./MeetModal";
 import moment from "moment";
+import Spinner from "./Spinner";
 
 const Previous = () => {
 
@@ -46,7 +47,9 @@ const Previous = () => {
                         ))}
                 </div>
             ) : (
-                <p className="flex justify-center text-xl">No Meeting scheduled</p>
+                <div className='flex justify-center w-full'>
+                <div className='flex justify-center w-full'><Spinner/></div>
+                </div>
             )}
         </div>
     )

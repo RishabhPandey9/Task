@@ -121,10 +121,10 @@ const Jobs = () => {
                   <div className='flex text-green-400 mt-2 md:mt-0'><BsFillDiamondFill className='mt-1 mr-1'/> <div className='font-semibold'>Active </div><RiArrowDropDownLine className='text-black text-2xl'/></div>
                 :<div className='flex text-red-500 mt-2 md:mt-0'><BsFillDiamondFill className='mt-1 mr-1'/> <div className='font-semibold'>Completed </div><RiArrowDropDownLine className='text-black text-2xl'/></div>}
               </div>
-              <div className='flex text-sm space-x-4 mt-5'>
+              <div className='grid w-full md:grid-cols-2  lg:grid-cols-3 gap-y-2 lg:gap-y-0 text-sm gap-x-2 mt-5'>
                 <div className='flex'><IoBriefcaseOutline className='text-lg mr-2 text-gray-400'/>{user.experience}</div>
                 <div className='flex'><RiMoneyDollarBoxLine className='text-lg mr-2 text-gray-400'/>{user.stipend}</div>
-                <div className='flex'><HiOutlineOfficeBuilding className='text-lg mr-2 text-gray-400'/>{user.employment_type}</div>
+                <div className='flex w-full'><HiOutlineOfficeBuilding className='text-2xl mr-2 text-gray-400'/>{user.employment_type}</div>
               </div>
               <div className='flex mt-3 text-sm'><ImLocation2 className='text-lg mr-2 text-gray-400'/>{user.location}</div>
               <div className='flex  mt-3 text-sm space-x-2'>

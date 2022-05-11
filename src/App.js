@@ -24,6 +24,8 @@ import Meeting from "./Components/Meeting/Meeting";
 import { Upcoming } from "@mui/icons-material";
 import Previous from "./Components/Meeting/Previous";
 import Help from "./Components/Help/Help";
+import VerifyOtp from "./Components/SignUp/VerifyOtp";
+import CreateCompanyProfile from "./Components/CompanyProfile/CreateCpmpanyProfile";
 
 
 function App() {
@@ -51,6 +53,8 @@ function App() {
       <Route exact path="/ProfileShearedByAdminDetails" element={<ProfileSharedByAdminDetails/>} />
       <Route exact path="/AddNewPosition" element={<AddNewPosition/>} />
       <Route exact path="/HelpFaq" element={<Help/>} />
+      <Route exact path="/VerifySignup" element={<VerifyOtp/>} />
+      <Route exact path="/CreateCompanyProfile" element={<CreateCompanyProfile/>} />
   
 
     </Routes>

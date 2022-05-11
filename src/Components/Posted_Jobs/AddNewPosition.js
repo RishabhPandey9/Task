@@ -113,7 +113,7 @@ const AddNewPosition = () => {
               <div className="flex ">
                 <Link to="/Jobs">
                 <div className="w-full text-center px-6 hover:bg-red-100 hover:text-black mt-5 md:mt-0 ease rounded py-2  mr-10  text-gray-400">
-                  X&nbsp; Cancle
+                  X&nbsp; Cancel
                 </div>
                 </Link>
                 <div onClick={createJob} className=" mt-5 cursor-pointer md:mt-0 w-40 md:px-10 ml-2  flex justify-center  bg-slate-100 rounded-lg">
@@ -124,7 +124,7 @@ const AddNewPosition = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:mr-28 gap-y-5 gap-x-4 md:gap-x-10 mt-8">
+            <div className="grid md:grid-cols-2 md:mr-28 gap-y-5 gap-x-4 md:gap-x-10 mt-8">
               <div>
                 <div className="text-gray-400  text-sm md:text-basetext-sm md:text-base mb-2 font-semibold">Position Name</div>
                 <TextField
@@ -214,7 +214,7 @@ const AddNewPosition = () => {
                 </div>
                 <TextField
                   className="w-full"
-                  label="Non Discloser"
+                  label="Salary"
                   //   className={
                   //     !currentState?.show
                   //       ?"w-full  "

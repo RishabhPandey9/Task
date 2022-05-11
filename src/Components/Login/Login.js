@@ -21,6 +21,7 @@ import {
   OutlinedInput,
   TextField
 } from "@mui/material";
+import "./Login.css"
 
 const cookies = new Cookies();
 
@@ -38,7 +39,7 @@ const Login = () => {
       .then((resp) => {
         console.log(resp);
 
-        navigate("/Jobs");
+        navigate("/Profile");
         cookies.set("token", resp.data.user.token);
         cookies.set("id", resp.data.user.id);
         cookies.set("email", resp.data.user.email);
@@ -73,9 +74,10 @@ const handleMouseDownPassword = (event) => {
 
   return (
     <>
-      <div className="mx-8 h-auto  md:mx-20 mt-10 md:mt-12 lg:mt-16 bg-white">
+    <div className="">
+    <div className="mx-8 h-auto  md:mx-20 mt-10 md:mt-12 lg:mt-16 ">
         <div className=" md:flex">
-          <div className="hidden md:flex md:flex-col w-1/2">
+          <div className="hidden md:flex md:flex-col  w-1/2">
             <div className="flex md:mt-16 lg:mt-2">
               <div className="md:text-lg lg:text-2xl xl:text-3xl lg:mt-1 font-semibold ">
                 Welcome to
@@ -196,6 +198,8 @@ const handleMouseDownPassword = (event) => {
           </div>
         </div>
       </div>
+    </div>
+     
     </>
   );
 };

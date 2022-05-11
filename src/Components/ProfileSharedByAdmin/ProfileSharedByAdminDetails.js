@@ -14,6 +14,7 @@ import { BsGithub } from "react-icons/bs";
 import logo from "../NavBar-Sidebar/HRI_Company_logo.png";
 import { BsDownload } from "react-icons/bs";
 import { saveAs } from "file-saver";
+import { Disclosure, Transition } from '@headlessui/react';
 
 const cookies = new Cookies();
 
@@ -22,7 +23,9 @@ const ProfileSharedByAdminDetails = () => {
   const currentState = useSelector(selectHeader);
   const [data, setData] = useState([]);
   const [view, setView] = useState(false);
-
+const handleView =(e) => {
+  
+}
   async function getData() {
     await axios
       .get(
@@ -142,7 +145,7 @@ const ProfileSharedByAdminDetails = () => {
                       <div className="text-xl font-semibold text-center md:text-left md:mx-24 mt-10">
                         Work Experience
                       </div>
-                      <div className="md:grid grid-cols-2 ml-24 gap-y-10 mt-8 ">
+                      <div className="text-center md:text-left md:grid grid-cols-2 md:ml-24 gap-y-10 mt-8 ">
                         {user.work_exp.map((user) => {
                           const start = new Date(user.start_date.slice(0, 10));
 
@@ -155,23 +158,23 @@ const ProfileSharedByAdminDetails = () => {
                             month: "long",
                           });
                           return (
-                            <div key={user.id} className="  ">
+                            <div key={user.id} className=" mt-3 ">
                               <div className="text-lg font-semibold">
                                 {user.position}{" "}
                               </div>
-                              <div className=" flex">
+                              <div className="justify-center md:justify-start  flex">
                                 <div className="font-semibold">From:</div>
                                 &nbsp;{start.getDate()}&nbsp;
                                 {month1.slice(0, 3)}&nbsp;
                                 {start.getFullYear()}
                               </div>
-                              <div className=" flex">
+                              <div className="justify-center md:justify-start flex  ">
                                 <div className="font-semibold">To:</div> &nbsp;{" "}
                                 {end.getDate()}&nbsp;
                                 {month2.slice(0, 3)}&nbsp;
                                 {end.getFullYear()}
                               </div>
-                              <div className="flex">
+                              <div className=" justify-center md:justify-start flex">
                                 <div className="font-semibold ">
                                   {user.company_name}{" "}
                                 </div>
@@ -184,7 +187,7 @@ const ProfileSharedByAdminDetails = () => {
                                 </div>
                               </div>
                               <div className="text-gray-400">
-                                {!view ? (
+                                {/* {!view ? (
                                   <div className="">
                                     {user.description.slice(0, 50)}...
                                     <div
@@ -196,7 +199,7 @@ const ProfileSharedByAdminDetails = () => {
                                   </div>
                                 ) : (
                                   <div className="">
-                                    {user.description}...
+                                   ...
                                     <div
                                       onClick={() => setView(!view)}
                                       className="text-blue-700 cursor-pointer"
@@ -204,7 +207,25 @@ const ProfileSharedByAdminDetails = () => {
                                       view less
                                     </div>
                                   </div>
-                                )}
+                                )} */}
+                                 <Disclosure>
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button className='text-regular flex w-full justify-between rounded-lg py-2  text-right font-medium text-[#4f46e5] underline '>
+                          <span>Read More</span>
+                        </Disclosure.Button>
+                        <Transition
+                          leave='transition duration-100 ease-out'
+                          leaveFrom='transform scale-100 opacity-100'
+                          leaveTo='transform scale-100 opacity-0'
+                        >
+                          <Disclosure.Panel className='px-2  pb-2 text-sm text-gray-500'>
+                          {user.description}
+                          </Disclosure.Panel>
+                        </Transition>
+                      </>
+                    )}
+                  </Disclosure>
                               </div>
                             </div>
                           );

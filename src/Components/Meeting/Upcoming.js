@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import MeetModal from "./MeetModal";
 import moment from "moment";
 import {getRequest} from "./Request";
+import Spinner from "./Spinner";
 
 const Upcoming = () => {
 
@@ -46,7 +47,9 @@ const Upcoming = () => {
                         ))}
                 </div>
             ) : (
-                <p className="flex justify-center text-xl">No Meeting scheduled</p>
+                <div className='flex justify-center w-full'>
+                <div className='flex justify-center w-full'><Spinner/></div>
+                </div>
             )}
         </div>
     )

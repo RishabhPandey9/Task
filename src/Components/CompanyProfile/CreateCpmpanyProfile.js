@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const cookies = new Cookies();
 
-const CompanyEdit = () => {
+const CreateCompanyProfile = () => {
   const navigate = useNavigate();
 
   const currentState = useSelector(selectHeader);
@@ -36,37 +36,7 @@ const CompanyEdit = () => {
   const [image, setImage] = useState("");
   const [id, setId] = useState("");
 
-  async function getData() {
-    await axios
-      .get("hri_company/company", {
-        headers: {
-          Authorization: "Token " + cookies.get("token"),
-        },
-      })
-      .then((resp) => {
-        console.log(resp.data);
-        cookies.set("compId",resp.data.id)
-        setName(resp.data.name);
-        setPhone(resp.data.company_number);
-        setEmail(resp.data.company_email);
-        setFounder(resp.data.company_founder);
-        setCeo(resp.data.company_ceo);
-        setHrPhone(resp.data.contact_number);
-        setHr(resp.data.contact_person);
-        setEmp(resp.data.company_employee);
-        setEstablished(resp.data.established_in);
-        setSector(resp.data.working_sector);
-        setLocation(resp.data.address);
-        setCompDetails(resp.data.company_description);
-        setCompWebsite(resp.data.company_url);
-        setLinkedIn(resp.data.facebook_url);
-        setFacebook(resp.data.linkedin_url);
-        setImage(resp.data.company_logo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  
 
   async function updateImage(e) {
     e.preventDefault();
@@ -75,7 +45,7 @@ const CompanyEdit = () => {
     formData.append("company_logo", e.target.files[0]);
     console.log(formData);
     axios
-      .put(`hri_company/company/update/${id}`, formData, {
+      .put(`hri_company/company/add`, formData, {
         headers: {
           Authorization: "Token " + cookies.get("token"),
         },
@@ -95,10 +65,11 @@ const CompanyEdit = () => {
     e.preventDefault();
 
     axios
-      .put(
-        `hri_company/company/update/${id}`,
+      .post(
+        `hri_company/company/add`,
         {
           name: name,
+          user: cookies.get("id"),
           company_email: email,
           company_number: phone,
           contact_person: hr,
@@ -130,9 +101,7 @@ const CompanyEdit = () => {
       });
   }
   useEffect(() => {
-    getData();
     setId(cookies.get("compId"));
-    console.log(id)
   }, [image]);
 
   return (
@@ -170,16 +139,18 @@ const CompanyEdit = () => {
                 </div>
               </div>
               <div className=" w-full mx-10  ml-[-10px]">
-                <div className="grid gap-x-4 gap-y-4 md:grid-cols-2">
-                 
+                <div className="flex space-x-10 xl:space-x-20">
+                  <div className="space-y-4">
                     <div>
                       <div className="">
                         <div className="text-gray-400 font-semibold">
-                          Company Name
+                          Full Name
                         </div>
 
                         <TextField
-                         className="w-full "
+                          className={
+                            !currentState?.show ? "w-full  " : "w-full xl:w-80 "
+                          }
                           value={name}
                           id="outlined-size-small"
                           onChange={(e) => setName(e.target.value)}
@@ -188,7 +159,7 @@ const CompanyEdit = () => {
                       </div>
                     </div>
                     <div>
-                     
+                      {" "}
                       <div className="">
                         <div className="text-gray-400 font-semibold">
                           Company Email ID
@@ -202,7 +173,7 @@ const CompanyEdit = () => {
                         />
                       </div>
                     </div>
-                  
+                    <div>
                       <div className="">
                         <div className="text-gray-400  font-semibold">CEO</div>
                         <TextField
@@ -213,7 +184,7 @@ const CompanyEdit = () => {
                           size="small"
                         />
                       </div>
-                      <div className="">
+                      <div className=" mt-4">
                         <div className="text-gray-400  font-semibold">HR</div>
                         <TextField
                           className="w-full "
@@ -235,17 +206,19 @@ const CompanyEdit = () => {
                           size="small"
                         />
                       </div>
-                   
-                 
-                 
+                    </div>
+                  </div>
+                  <div className="space-y-4">
                     <div>
                       {" "}
-                      <div className="mt-4   ">
+                      <div className="">
                         <div className="text-gray-400 font-semibold">
                           Company Phone Number
                         </div>
                         <TextField
-                         className="w-full "
+                          className={
+                            !currentState?.show ? "w-full  " : "w-full xl:w-80 "
+                          }
                           value={phone}
                           id="outlined-size-small"
                           onChange={(e) => setPhone(e.target.value)}
@@ -268,7 +241,7 @@ const CompanyEdit = () => {
                         />
                       </div>
                     </div>
-                  
+                    <div>
                       {" "}
                       <div className="">
                         <div className="text-gray-400 font-semibold">
@@ -292,6 +265,7 @@ const CompanyEdit = () => {
                           value={emp}
                           onChange={(e) => setEmp(e.target.value)}
                         >
+                            <option className="h-20"></option>
                           <option className="h-20">100-200</option>
                           <option className="h-20">200-300</option>
                           <option className="h-20">300-400</option>
@@ -307,13 +281,14 @@ const CompanyEdit = () => {
                           value={sector}
                           onChange={(e) => setSector(e.target.value)}
                         >
+                            <option className="h-20" lable="Select Sector"></option>
                           <option className="h-20">Software Solutions</option>
                           <option className="h-20">IT sector</option>
                           <option className="h-20">Mechanical sector</option>
                         </select>
                       </div>
-                   
-                
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-5">
                   <div className="text-gray-400 font-semibold">Location</div>
@@ -338,8 +313,8 @@ const CompanyEdit = () => {
                       value={compDetails}
                       onChange={(e) => setCompDetails(e.target.value)}
                     />
-                    <div className="mt-4 gap-y-4 grid lg:grid-cols-2">
-                     
+                    <div className="flex space-x-10 mt-5 xl:space-x-20">
+                      <div className="space-y-4">
                         <div>
                           <div className="">
                             <div className="text-gray-400 font-semibold">
@@ -374,8 +349,8 @@ const CompanyEdit = () => {
                             />
                           </div>
                         </div>
-                     
-                      
+                      </div>
+                      <div className="space-y-4">
                         <div>
                           {" "}
                           <div className="">
@@ -410,7 +385,7 @@ const CompanyEdit = () => {
                               size="small"
                             />
                           </div>
-                        
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -423,7 +398,7 @@ const CompanyEdit = () => {
                     className=" mt-5 md:mt-0 w-full px-10   flex justify-center  bg-slate-100 rounded-lg"
                   >
                     <div className="  flex bg-slate-100 my-2 text-blue-700 ">
-                      <div>Save</div>{" "}
+                      <div>Create</div>{" "}
                       <RiCheckDoubleFill className="ml-2 mt-[1px] text-xl" />
                     </div>
                   </div>
@@ -437,4 +412,4 @@ const CompanyEdit = () => {
   );
 };
 
-export default CompanyEdit;
+export default CreateCompanyProfile;

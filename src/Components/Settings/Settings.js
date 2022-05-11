@@ -226,7 +226,7 @@ const Settings = () => {
     return (
         <>
         <Header/>
-        <div className='bg-gray-100 w-full h-auto mt-[68px]'>
+        <div className='bg-gray-100 w-full h-screen mt-[68px]'>
         <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 ' : ' ease-in  duration-300  ml-0 '}>
         <div className="py-3 px-3">
 
@@ -238,14 +238,14 @@ const Settings = () => {
                             <div className=" row p-6 space-y-5">
                                 <div>
                                     
-                                    <div className="mt-3">
-                                        <FormControl variant="outlined" className="m-2 sm:mr-5">
+                                    <div className="mt-3 ">
+                                        <FormControl variant="outlined" className="m-2 w-full sm:mr-5">
                                             <InputLabel htmlFor="outlined-adornment-password">
                                                 Current Password
                                             </InputLabel>
                                             <OutlinedInput
                                                 label="Current Password"
-                                                className="sm:w-52 md:w-64 lg:w-80"
+                                                className="w-full md:w-[255px] lg:w-[320px]"
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 onChange={(e) => setOldPassword(e.target.value)}
                                                 endAdornment={
@@ -267,8 +267,8 @@ const Settings = () => {
                                     </div>
                                 </div>
 
-                                <div className="row ">
-                                    <div className="col sm:space-x-5 md:spacex-6 lg:space-x-8">
+                                <div className=" ">
+                                    <div className="grid gap-y-4 md:grid-cols-2">
                                         <FormControl variant="outlined" className="m-2">
                                             <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
                                             <OutlinedInput
@@ -320,7 +320,7 @@ const Settings = () => {
                                     </div>
 
                                 </div>
-                                <div className="pt-5 sm:space-x-2 md:space-x-4 lg:space-x-4">
+                                <div className="grid gap-y-4 gap-x-4  md:grid-cols-2 md:mr-20">
                                     <Button
                                         className="py-2 px-4 m-2"
                                         onClick={Checking_Password}
@@ -412,7 +412,7 @@ const Settings = () => {
                                 type="number"
                                 helperText="Enter OTP here to verify"
                                 style={{width: "350px"}}
-                                value={otp}
+                                // value={otp}
                                 onChange={(e) => setOtp(e.target.value)}
                             />
                         </div>

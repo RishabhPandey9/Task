@@ -132,13 +132,13 @@ const Help = () => {
     return (
         <>
            <Header/>
-           <div className='bg-gray-100 w-full h-auto mt-[68px] '>
+           <div className='bg-gray-100 w-full h-screen mt-[68px] '>
     <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 h-auto' : ' ease-in  duration-300 h-auto ml-0 '}>
             {active === "btn1" ? <div>
                 <div className="p-2 md:p-4">
                     <div className="card bg-gradient-to-r from-sky-500 to-indigo-500 h-[30vh] border-none rounded-xl">
                         <div className="card-body" align="center">
-                            <p className="text-2xl md:text-3xl text-white">How Can We Help You</p>
+                            <p className="text-2xl md:text-3xl pt-6 text-white">How Can We Help You</p>
                             <input
                                 variant="filled"
                                 className="bg-white h-12 focus:outline-none w-1/2 rounded-full mt-4 px-10 border-none"
@@ -188,20 +188,20 @@ const Help = () => {
                                         </p>
                                     </div>
                                     <div className="flex flex-row-reverse">
-                                        <p
-                                            className="text-sm md:text-lg w-40 md:w-60 mr-3 md:px-5 py-2.5 cursor-pointer"
+                                        <div
+                                            className="text-sm flex md:text-lg mr-3 md:px-5 py-2.5 cursor-pointer"
                                             onClick={() => setActive("btn3")}
                                         >
                                             Show All Tutorial Videos
-                                            <ArrowForwardIosIcon className="ml-1" style={{fontSize: "small"}}/>
-                                        </p>
+                                            <ArrowForwardIosIcon className="ml-1 mt-2" style={{fontSize: "small"}}/>
+                                        </div>
                                     </div>
 
 
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                     {tutorialdata.filter((value, index) => index < 3).map((info) => (
-                                        <div className="card mt-4 border-none rounded-lg m-2" key={info.id}>
+                                        <div className="card bg-white pt-4 mt-4 border-none rounded-lg m-2" key={info.id}>
                                             <div className="card-body">
                                                 <p className="text-lg md:text-2xl font-bold">
                                                     {info.title}
@@ -337,23 +337,23 @@ const Help = () => {
             </div> : <></>}
 
             {active === "btn3" ? <div>
-                <div className="card my-3 mx-4 border-none rounded-lg">
-                    <div className="card-body">
-
-                        <Button startIcon={<ArrowBackIosNewIcon/>}
+                <div className="card my-3 mx-4 pt-4 border-none rounded-lg">
+                    <div className="card-body   ">
+                            <div className="bg-sky-100 h-12 pt-2 pl-2 rounded-t-lg"><Button className="" startIcon={<ArrowBackIosNewIcon/>}
                                 onClick={() => setActive("btn1")}>
                             Back
-                        </Button>
+                        </Button></div>
+                        
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-1 px-10 bg-white md:grid-cols-2 gap-x-4 lg:grid-cols-3">
                             {tutorialdata.map((info) => (
-                                <div className="card mt-4 bg-[#EDEBEE] border-none rounded-lg m-2" key={info.id}>
+                                <div className="card mt-4 bg-gray-100 pt-4 border-none rounded-lg m-2" key={info.id}>
                                     <div className="card-body">
                                         <div>
-                                            <p className="font-bold text-xl">
+                                            <p className="font-bold text-center text-xl">
                                                 {info.title}
                                             </p>
-                                            <p className="text-lg">
+                                            <p className="text-lg text-center">
                                                 {info.description}
                                             </p>
                                             <video

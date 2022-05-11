@@ -49,7 +49,7 @@ const ProfileSharedByAdmin = () => {
     <>
     <Header />
       <div>
-      <div className="bg-gray-100 pb-10 mt-[68px]  w-full h-auto">
+      <div className="bg-gray-100 pb-10 mt-[68px]  w-full h-screen">
         <div
           className={
             !currentState?.show
