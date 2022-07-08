@@ -10,6 +10,8 @@ import TextField from "@mui/material/TextField";
 import {RiCheckDoubleFill} from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -75,11 +77,30 @@ const EditProfile = () => {
           },
         })
         .then((res) => {
+
           navigate("/Profile");
+          toast.success("Edited Sucessfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
           })
-        .catch((err) => {
-          console.log(err);
-        });
+          .catch(function (error) { 
+              toast.error( "Please re-check the form!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+               
+          });
     };
 
 

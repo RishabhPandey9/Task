@@ -7,11 +7,49 @@ import {BiChevronDown} from "react-icons/bi"
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-
+const status =[
+  {
+    id: "Applied",
+    name : "Applied"
+  },
+  {
+    id: "In-Review",
+    name : "In-Review"
+  },
+  {
+    id:"Interview",
+    name : "Interview"
+  },
+  {
+    id: "Selected",
+    name : "Selected"
+  },
+]
 
 const cookies = new Cookies();
 
 const ProfileSharedByAdmin = () => {
+  const [statusId,setStatusId] = useState("")
+  const statusChange = (e) => {
+    setStatusID(e.target.value);
+  };
+  const [statusID,setStatusID] = useState('')
+  useEffect(() =>{
+    axios
+    .post(`hri_company/application/status-change/${statusId}`,{
+      status: statusID
+    }, {
+      headers: {
+        Authorization: "Token " + cookies.get("token"),
+      },
+    })
+    .then((resp) => {
+     console.log(resp.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[statusID])
   const navigate = useNavigate();
     const currentState = useSelector(selectHeader);
  
@@ -65,14 +103,15 @@ const ProfileSharedByAdmin = () => {
         <table className="w-full ">
           <thead className="bg-white border-b-2 border-black">
             <tr className='text-black '>
-              <th className="w-20 p-3  text-lg font-semibold tracking-wide text-center">
-                Status
-              </th>
+              
               <th className="w-10 pl-[-200px]  p-3 text-lg font-semibold tracking-wide text-left pl-10">
                  Applicants 
               </th>
               <th className="w-10 p-3  text-lg font-semibold tracking-wide text-center">
               Shared at
+              </th>
+              <th className="w-20 p-3  text-lg font-semibold tracking-wide text-center">
+                Status
               </th>
               <th className="w-24 p-3 text-lg font-semibold tracking-wide text-center">
                 Details
@@ -91,14 +130,12 @@ const ProfileSharedByAdmin = () => {
                 <tr
                   
                 key={user.id}
-                 onClick={() => {navigate("/ProfileShearedByAdminDetails"); cookies.set("profileSharedByAdminID",user.id)}}
+                
                   
                   className="bg-white cursor-pointer hover:bg-gray-100"
                   
                 >
-                  <td  className="p-3 flex justify-center mt-2  text-base text-gray-700 whitespace-nowrap">
-                    Select option <BiChevronDown className='text-xl ml-1'/>
-                  </td>
+                  
                   <td className="p-3   text-base pl-10 text-gray-700 whitespace-nowrap">
                    <div className='flex'>
                      <div className='w-12 h-12 '> 
@@ -116,8 +153,34 @@ const ProfileSharedByAdmin = () => {
                    {month.slice(0,3)}&nbsp;
                    {date.getFullYear()}
                   </td>
-                  <td className="p-3  text-base  whitespace-nowrap">
-                    <div className='bg-gray-100   py-2 rounded-lg px-[-20px] text-black '> View Profile </div>
+                  <td  className="p-3 flex justify-center mt-2  text-base text-gray-700 whitespace-nowrap">
+                  <select
+                  value={user.status}
+                  onClick={() => setStatusId(user.id)}
+                  className="form-select border-none w-28  ml-1  appearance-none block  px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border  border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  aria-label="Default select example"
+                
+                  onChange={statusChange}
+                >
+                  <option
+                    className="h-20  dropdown-item text-sm  py-2 px-4 font-normal  block  w-full  whitespace-nowrap bg-transparent text-gray-400 pointer-events-none"
+                  disabled
+                  >
+                    
+                   Select Status
+                  </option>
+
+                   {status.map((user) => (
+                <option className="h-20" key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))} 
+                </select>
+                  </td>
+                  <td 
+                   onClick={() => {navigate("/ProfileShearedByAdminDetails"); cookies.set("profileSharedByAdminID",user.id)}}
+                  className="p-3  text-base  whitespace-nowrap">
+                    <div className='bg-gray-100  hover:bg-gray-200  py-2 rounded-lg px-[-20px] text-black '> View Profile </div>
                   </td>
                   
                 </tr>

@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -53,14 +55,40 @@ const AddNewPosition = () => {
       })
       .then((resp) => {
         console.log(resp);
-
+        toast.success("Position added successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         navigate("/Jobs");
         
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+       
+        console.log(error.response,"asdadsads")
+        
+        
+      
+           
+          toast.error( "Please re-check the form!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            console.log(error.response.data.user.message)
+          
+        
       });
   }
+  toast.configure();
   useEffect(() =>{
     axios
         .get("hri_company/roles", {
@@ -130,16 +158,12 @@ const AddNewPosition = () => {
                 <TextField
                   className="w-full"
                   label="Enter role of the job"
-                  //   className={
-                  //     !currentState?.show
-                  //       ?"w-full  "
-                  //       : "w-full xl:w-80 "
-                  //   }
-                  //   value={name}
+                 
 
                   id="outlined-size-small"
                   onChange={(e) => setPositionName(e.target.value)}
                   size="small"
+                  required
                 />
               </div>
               <div>
@@ -150,7 +174,7 @@ const AddNewPosition = () => {
                 <select
                   className="form-select   ml-1  appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example"
-                  //   value={emp}
+                 required
                    onChange={(e) => setExperience(e.target.value)}
                 >
                   <option
@@ -178,6 +202,7 @@ const AddNewPosition = () => {
                   aria-label="Default select example"
                   //   value={emp}
                    onChange={(e) => setEmploymentType(e.target.value)}
+                   required
                 >
                   <option
                     className="h-20  dropdown-item text-sm  py-2 px-4 font-normal  block  w-full  whitespace-nowrap bg-transparent text-gray-400 pointer-events-none"
@@ -196,12 +221,7 @@ const AddNewPosition = () => {
                 <TextField
                   className="w-full"
                   label="Enter Location of the job will play"
-                  //   className={
-                  //     !currentState?.show
-                  //       ?"w-full  "
-                  //       : "w-full xl:w-80 "
-                  //   }
-                  //   value={name}
+                 
 
                   id="outlined-size-small"
                    onChange={(e) => setLocation(e.target.value)}
@@ -215,16 +235,12 @@ const AddNewPosition = () => {
                 <TextField
                   className="w-full"
                   label="Salary"
-                  //   className={
-                  //     !currentState?.show
-                  //       ?"w-full  "
-                  //       : "w-full xl:w-80 "
-                  //   }
-                  //   value={name}
+              
 
                   id="outlined-size-small"
                    onChange={(e) => setStipend(e.target.value)}
                   size="small"
+                  required
                 />
               </div>
               <div>
@@ -234,16 +250,12 @@ const AddNewPosition = () => {
                 <TextField
                   className="w-full"
                   label="Any Degree"
-                  //   className={
-                  //     !currentState?.show
-                  //       ?"w-full  "
-                  //       : "w-full xl:w-80 "
-                  //   }
-                  //   value={name}
+                 
 
                   id="outlined-size-small"
                    onChange={(e) => setEducation(e.target.value)}
                   size="small"
+                  required
                 />
               </div>
               <div>
@@ -255,6 +267,7 @@ const AddNewPosition = () => {
                   aria-label="Default select example"
                   //   value={emp}
                   onChange={roleCatChange}
+                  required
                 >
                   <option
                     className="h-20  dropdown-item text-sm  py-2 px-4 font-normal  block  w-full  whitespace-nowrap bg-transparent text-gray-400 pointer-events-none"
@@ -276,12 +289,7 @@ const AddNewPosition = () => {
                 <TextField
                   className="w-full"
                   label="React Apps Develop and Deploy"
-                  //   className={
-                  //     !currentState?.show
-                  //       ?"w-full  "
-                  //       : "w-full xl:w-80 "
-                  //   }
-                  //   value={name}
+                 required
 
                   id="outlined-size-small"
                    onChange={(e) => setFunctionalArea(e.target.value)}
@@ -295,7 +303,7 @@ const AddNewPosition = () => {
                 <select
                   className="form-select   ml-1  appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example"
-                  //   value={emp}
+                  required
                   onChange={roleSubCatChange}
                 >
                   <option
@@ -315,7 +323,7 @@ const AddNewPosition = () => {
             <div className="mt-4 md:mr-28">
                 <div className="text-gray-400  text-sm md:text-base mb-2 font-semibold">Job Description</div>
                 <textarea
-            
+            required
             className="h-28  mt-2   2xl:placeholder:pl-6 placeholder:text-xs md:placeholder:text-base xl:placeholder:text-lg 2xl:placeholder:text-3xl 2xl:mt-6 mt-1 rounded-lg block  w-full border border-slate-300  py-2 pl-5 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
             placeholder="Please describe about in In-Detail"
             cols="10"
@@ -327,7 +335,7 @@ const AddNewPosition = () => {
               <div className="mt-4 md:mr-28">
                 <div className="text-gray-400  text-sm md:text-base mb-2 font-semibold">Skills</div>
                 <textarea
-            
+            required
             className="h-28  mt-2   2xl:placeholder:pl-6 placeholder:text-xs md:placeholder:text-base xl:placeholder:text-lg 2xl:placeholder:text-3xl 2xl:mt-6 mt-1 rounded-lg block  w-full border border-slate-300  py-2 pl-5 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
             placeholder="Enter skills the job role required to give the best"
             cols="10"

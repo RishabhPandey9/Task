@@ -4,7 +4,6 @@ import { selectHeader } from "../features/HeaderSlice";
 import { useSelector } from "react-redux";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import axios from "axios";
-import { VscCopy } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
@@ -92,7 +91,7 @@ const handleView =(e) => {
                         </div>
                         <div className="text-xl flex justify-center font-semibold ml-4 md:ml-6 flex mt-4">
                           {user.user_fname}&nbsp;{user.user_lname}{" "}
-                          <VscCopy className="text-blue-700 ml-2 mt-1" />
+                          {/* <VscCopy className="text-blue-700 ml-2 mt-1" /> */}
                         </div>
                       </div>
                       <div className="grid text-center md:text-left md:grid-cols-2 md:mx-24 gap-y-4 md:gap-x-10 lg:gap-x-5 mt-7">
@@ -275,11 +274,11 @@ const handleView =(e) => {
                                         class="text-xl font-medium leading-normal text-gray-800"
                                         id="exampleModalScrollableLabel"
                                       >
-                                        {user.degree_name} certificate.pdf
+                                        {user.certificate_name}.pdf
                                       </h5>
                                     </div>
                                     <div class="modal-body relative p-4">
-                                      <iframe src={user.certificate} width="100%" className="h-96"  ></iframe>
+                                      <iframe src={user.certificate} width="100%" className="h-96"  title="some"></iframe>
                                     </div>
                                     <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
                                       <button
@@ -309,10 +308,7 @@ const handleView =(e) => {
                               </div>
                               <div className="bg-slate-100  md:w-80 flex justify-center rounded py-10 mt-2">
                                 {" "}
-                                <BsDownload
-                                  data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"
-                                  className="absolute cursor-pointer ml-24 md:ml-32 mt-[-20px] text-blue-800 text-xl text-semibold"
-                                />
+                               
                                 <div className="text-center">
                                   <BsFillFileEarmarkPdfFill className="text-blue-600  ml-12 md:ml-12 mb-2  text-6xl" />{" "}
                                   <div className="text-center  text-blue-500">

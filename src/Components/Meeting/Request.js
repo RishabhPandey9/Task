@@ -14,7 +14,7 @@ const getRequest = (endPoint, setData) => {
     })
     .then((res) => {
       console.log("response from submitting the form successful", res.data);
-      toast.success("Getting Response");
+       
       setData(res.data);
     })
     .catch((err) => {
@@ -32,7 +32,7 @@ const postRequest = (endPoint, data, path) => {
     })
     .then((res) => {
       console.log("response from submitting the form successful", res.data);
-      toast.success("Getting Response");
+       
       // window.location.replace(path);
     })
     .catch((err) => {
@@ -50,7 +50,7 @@ const updateRequest = (endPoint, data, path) => {
     })
     .then((res) => {
       console.log("response from submitting the form successful", res.data);
-      toast.success("Getting Response");
+       
       window.location.replace(path);
     })
     .catch((err) => {
@@ -68,7 +68,7 @@ const deleteRequest = (endPoint, path) => {
     })
     .then((res) => {
       console.log("response from submitting the form successful", res.data);
-      toast.success("Getting Response");
+       
       window.location.replace(path);
     })
     .catch((err) => {

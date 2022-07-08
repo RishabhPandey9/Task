@@ -10,6 +10,8 @@ import TextField from "@mui/material/TextField";
 import { RiCheckDoubleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -124,11 +126,38 @@ const CompanyEdit = () => {
       )
       .then((res) => {
         navigate("/CompanyProfile");
+        toast.success("Edited Sucessfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+       
+        console.log(error.response,"asdadsads")
+        
+        
+      
+           
+          toast.error( "Please re-check the form!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+           
+          
+        
       });
   }
+  toast.configure();
   useEffect(() => {
     getData();
     setId(cookies.get("compId"));
@@ -338,7 +367,7 @@ const CompanyEdit = () => {
                       value={compDetails}
                       onChange={(e) => setCompDetails(e.target.value)}
                     />
-                    <div className="mt-4 gap-y-4 grid lg:grid-cols-2">
+                    <div className="mt-4 gap-y-4 grid lg:grid-cols-2 gap-x-4">
                      
                         <div>
                           <div className="">

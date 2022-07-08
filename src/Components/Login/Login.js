@@ -11,6 +11,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { toast,ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Button,
@@ -29,6 +30,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error,setError] = useState('')
 
   async function Login(e) {
     e.preventDefault();
@@ -40,14 +42,40 @@ const Login = () => {
         console.log(resp);
 
         navigate("/Profile");
+        toast.success("Login successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         cookies.set("token", resp.data.user.token);
         cookies.set("id", resp.data.user.id);
         cookies.set("email", resp.data.user.email);
-      })
-      .catch((err) => {
-        console.log(err);
+      }).catch(function (error) {
+       
+        console.log(error.response,"asdadsads")
+        
+        
+      
+           
+          toast.error(error.response.data.user.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            console.log(error.response.data.user.message)
+          
+        
       });
   }
+  toast.configure();
   const [values, setValues] = React.useState({
     amount: '',
     password: '',

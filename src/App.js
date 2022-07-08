@@ -28,6 +28,7 @@ import VerifyOtp from "./Components/SignUp/VerifyOtp";
 import CreateCompanyProfile from "./Components/CompanyProfile/CreateCpmpanyProfile";
 
 
+
 function App() {
   return (
     <Router>
@@ -55,7 +56,7 @@ function App() {
       <Route exact path="/HelpFaq" element={<Help/>} />
       <Route exact path="/VerifySignup" element={<VerifyOtp/>} />
       <Route exact path="/CreateCompanyProfile" element={<CreateCompanyProfile/>} />
-  
+     
 
     </Routes>
     </Router>

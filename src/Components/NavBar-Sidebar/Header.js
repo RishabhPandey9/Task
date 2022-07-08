@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-
+import {BsFillDiamondFill} from "react-icons/bs"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import logo from "./HRI_Company_logo.png";
 import profile from "./profile.png";
 import { NavLink } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { MdArrowBackIos } from "react-icons/md";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
+import "./styles.css";
+
+// import required modules
+import { Navigation } from "swiper";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
 import { HiUserGroup } from "react-icons/hi";
@@ -22,14 +31,38 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { MdOutlineClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const cookies = new Cookies();
 
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [data,setData] = useState([])
+  const [slide,setSlide] = useState([])
   const currentState = useSelector(selectHeader);
+  async function getData() {
+    await axios
+      .get("hri_company/broadcast-list", {
+        headers: {
+          Authorization: "Token " + cookies.get("token"),
+        },
+      })
+      .then((resp) => {
+        console.log(resp.data,"<===data");
+        console.log(resp.data.length,"<===length");
+        setData(resp.data.length)
+        setSlide(resp.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
+  useEffect(() => {
+    getData();
+  }, []);
   const [nav, setNav] = useState(true);
   const [active,setActive] = useState("Posted Jobs")
 
@@ -84,6 +117,34 @@ const Header = () => {
             </p>
           </div>
         </div>
+        <div className="flex justify-center">
+  <div>
+    <div className="dropdown relative">
+      <button
+        className="
+          dropdown-toggle
+        
+      
+          font-medium
+          text-xs
+          leading-tight
+          uppercase
+          rounded
+       
+         
+          transition
+          duration-150
+          ease-in-out
+          flex
+          items-center
+          whitespace-nowrap
+        "
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <div>
         <div className="space-x-3  ">
           <div className="space-x-2 flex justify-end mt-3  w-full">
             <div className="">
@@ -107,7 +168,181 @@ const Header = () => {
           </div>
         </div>
       </div>
+     
+      </button>
+      <ul
+        className="
+          dropdown-menu
+          min-w-max
+          absolute
+       
+          bg-white
+          text-base
+          z-50
+          float-left
+          py-2
+         
+          list-none
+          text-left
+          rounded-lg
+          shadow-lg
+          mt-1
+          hidden
+          m-0
+          bg-clip-padding
+          border-none
+        "
+        aria-labelledby="dropdownMenuButton1"
+      >
+        <li
+          onClick={() => navigate("/Profile")}
+            className="
+              dropdown-item
+              text-sm
+              py-2
+              px-16
+      
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+              cursor-pointer
+              font-semibold
+            "
+          
+            >Profile
+          
+        </li>
+        <li
+        onClick={() => navigate("/Message")}
+          
+            className="
+              dropdown-item
+              text-sm
+              py-2
+              px-16
+          
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+              cursor-pointer
+              font-semibold
+            "
+          
+            >Message
+          
+        </li>
+        <li
+          // onClick={() => navigate("/Message")}
+          className="
+            dropdown-item
+            text-sm
+            py-2
+            px-16
+           
+            block
+            w-full
+            whitespace-nowrap
+            bg-transparent
+            text-gray-700
+            hover:bg-gray-100
+            cursor-pointer
+            font-semibold
+          "
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModalCenterBrodCast"
+          >Notification <span className="text-lg ml-2 text-red-500">{data}</span>
+        
+      </li>
+      <li className="border-b "/>
+      <li
+          onClick={() => navigate("/")}
+          className="
+            dropdown-item
+            text-sm
+            py-2
+            px-16
+         
+            block
+            w-full
+            whitespace-nowrap
+            bg-transparent
+            text-gray-700
+            hover:bg-gray-100
+            hover:text-red-500
+            cursor-pointer
+            font-semibold
+          "
+        
+          >Logout
+        
+      </li>
+      </ul>
+    </div>
+  </div>
+</div>
+      </div>
+      <div
+          className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+          id="exampleModalCenterBrodCast"
+          tabIndex="-1"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-modal="true"
+          role="dialog"
+        >
+          <div className="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+            <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+              <div className=" bg-blue-200  rounded-t-lg w-full h-auto p-4 md:pl-10 md:pr-10">
+                <div className="flex justify-between ">
+                  <button
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    className="text-sky-600 flex"
+                  >
+                    <MdArrowBackIos className="mt-1" />
+                    <div className="font-semibold">Back</div>
+                  </button>
+                </div>
+              </div>
+              <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+        {slide.map((item) =>{
+          return(
+            <SwiperSlide>
+              <div className="flex justify-start flex-col w-full">
+            <div className="flex justify-between ml-10 mt-5 ">
+          <div className="flex">
+            <Avatar
+                  src={cookies.get("profileImage")}
+                  className=" mr-4 md:mr-0 border-2 border-slate-500"
+                />
+                <div className="ml-4 mt-1">{item.header}</div>
+          </div>
+          <div className="mr-10 text-xl mt-1"><BsFillDiamondFill className={`${item.is_active === true ? "text-green-500":"text-red-500"}`}/></div>
+            </div>
+            <div className="px-10 mt-4">
+              {item.message}
+            </div>
+            </div>
+          </SwiperSlide>
+          )
+        })}
+      
 
+      </Swiper>
+              <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-start p-4  border-gray-200 rounded-b-md">
+                {/* <Link to="/SendReply"> */}
+              
+                {/* </Link> */}
+              </div>
+            </div>
+          </div>
+          
+        </div>
       <nav
         className={
           nav

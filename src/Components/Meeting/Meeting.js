@@ -49,7 +49,7 @@ const Meeting = () => {
         <>
             
           <Header/>
-          <div className='bg-gray-100 w-full mt-[68px] h-auto '>
+          <div className='bg-gray-100  mt-[68px] w-full h-screen '>
     <div className={!currentState?.show?' lg:ml-72 ease-in duration-300 h-auto' : ' ease-in  duration-300 h-auto ml-0 '}>
           <div className='bg-gray-100 w-full '>
     {/* <div className={!currentState?.show?' lg:ml-72 ease-in h-full duration-300 ' : ' ease-in  duration-300 h-full ml-0'}> */}

@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { RiCheckDoubleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -85,9 +87,35 @@ const EditJobDetails = () => {
       )
       .then((res) => {
         navigate("/Jobs");
+        toast.success("Edited sucessfully!!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+       
+        console.log(error.response,"asdadsads")
+        
+        
+      
+           
+          toast.error("Something went wrong!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            console.log(error.response.data.user.message)
+          
+        
       });
   }
 

@@ -103,50 +103,57 @@ const JobDetails = () => {
                   <div className="grid gap-y-5">
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Position Name</div>
-                      <div>{position_name}</div>
+                      <div>{position_name? position_name : "N/A"}</div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Emploment Type</div>
-                      <div>{employment_type}</div>
+                    
+                      <div>{employment_type? employment_type : "N/A"}</div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Money</div>
-                      <div>{stipend}</div>
-                    </div>
-                    <div className="grid gap-y-2">
-                      <div className="text-gray-400 ">Role</div>
-                      <div>{role_sub_category_name}</div>
+                  
+                      <div>{stipend? stipend : "N/A"}</div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Role Categoty</div>
-                      <div>{role_category_name}</div>
+                     
+                      <div>{role_category_name? role_category_name : "N/A"}</div>
                     </div>
+                    <div className="grid gap-y-2">
+                      <div className="text-gray-400 ">Role Sub Category</div>
+                    
+                      <div>{role_sub_category_name? role_sub_category_name : "N/A"}</div>
+                    </div>
+                   
                   </div>
                   <div className="grid gap-y-5 ml-10 md:ml-40">
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Experience</div>
-                      <div>{experience}</div>
+                      
+                      <div>{experience? experience : "N/A"}</div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Location</div>
                       <div className="flex">
-                        <div className="">{location}...</div>
+                      
+                        <div>{location? location : "N/A"}...</div>
                         <GoLocation className="text-gray-400 text-2xl md:text-xl  ml-4" />
                       </div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Education</div>
-                      <div className="w-2/3 md:w-full">{criteria}</div>
+                      <div className="w-2/3 md:w-full">{criteria ? criteria : "N/A"}</div>
                     </div>
                     <div className="grid gap-y-2">
                       <div className="text-gray-400 ">Functional Area</div>
-                      <div className="">{functional_area}</div>
+                      <div className="">{functional_area ? functional_area: "N/A"}</div>
                     </div>
                   </div>
                 </div>
                 <div className="md:ml-20 mt-5 font-semibold text-sm  ">
                   <div className="text-gray-400 ">Job Description</div>
-                  <div className="md:w-3/5 mt-3">{job_description}</div>
+                  <div className="md:w-3/5 mt-3">{job_description ? job_description: "N/A" }</div>
                 </div>
                 <div className="md:ml-20 mt-5 font-semibold text-sm  ">
                   <div className="text-gray-400 ">Skills</div>

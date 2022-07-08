@@ -10,6 +10,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import {MdDelete} from 'react-icons/md'
 import logoMessage from './logoMessage.jpeg'
+import nodata from './Nodata.png'
 
 import { MdArrowBackIos } from "react-icons/md";
 
@@ -24,7 +25,7 @@ const Message = () => {
     const [toDate, setToDate] = useState("3000-1-1");
     const [fromDate, setFromDate] = useState("1900-1-1");
     const [active, setActive] = useState("All");
-    
+    const [loading,setLoading] = useState(true)
 
 
     
@@ -43,6 +44,7 @@ const Message = () => {
         .then((resp) => {
           setData(resp.data);
           console.log(resp.data);
+          setLoading(false)
           
         })
         .catch((err) => {
@@ -110,14 +112,14 @@ const Message = () => {
     <div className=" bg-white w-full  h-auto lg:flex justify-between">
     <div className={!currentState?.show?'bg-white flex  space-x-1 text-xs md:text-xs lg:text-xl  font-semibold p-1 text-gray-600  md:p-2 ':"bg-white space-x-1 flex  lg:space-x-4 text-xs md:text-lg xl:text-xl  font-semibold p-1 text-gray-600  md:p-2 "}>
                 {active === "All"?
-                    <div onClick={all} className={!currentState?.show?'p-3 cursor-pointer rounded-lg lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>All</div>
-                :<div onClick={all} className={!currentState?.show?'p-3 rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>All</div>}
+                    <div onClick={all} className={!currentState?.show?'p-3 text-lg cursor-pointer rounded-lg lg:py-5 xl:py-3 md:px-3 lg:px-4 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Received</div>
+                :<div onClick={all} className={!currentState?.show?'p-3 text-lg rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-4 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Received</div>}
                 {active === "un-read"?
-                    <div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Un-Read</div>
-                :<div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Un-Read</div>}
+                    <div onClick={unRead} className={!currentState?.show?'p-3 text-lg rounded-lg cursor-pointer lg:py-5 xl:py-3 md:px-3 lg:px-4 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Un-Read</div>
+                :<div onClick={unRead} className={!currentState?.show?'p-3 rounded-lg text-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-4 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Un-Read</div>}
                 {active === "sent"?
-                    <div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-8 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Sent</div> 
-                :<div onClick={sent} className={!currentState?.show?'p-3 rounded-lg lg:py-5 xl:py-3 cursor-pointer md:px-3 lg:px-8 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Sent</div>}
+                    <div onClick={sent} className={!currentState?.show?'p-3  text-lg rounded-lg lg:py-5 cursor-pointer xl:py-3 md:px-3 lg:px-4 bg-slate-100 text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 bg-slate-100 text-blue-700'}>Sent</div> 
+                :<div onClick={sent} className={!currentState?.show?'p-3 text-lg rounded-lg lg:py-5 xl:py-3 cursor-pointer md:px-3 lg:px-4 hover:bg-slate-100 hover:text-blue-700':'p-3 rounded-lg md:px-8 lg:py-5 xl:py-3 hover:bg-slate-100 hover:text-blue-700'}>Sent</div>}
 
                 
                    
@@ -230,7 +232,9 @@ const Message = () => {
             </table>
             ) : (
               <div className='flex justify-center w-full'>
-                <div className='flex justify-center w-full'><Spinner/></div>
+                {loading?<div className='flex justify-center w-full'><Spinner/></div>:
+                   <div className='flex justify-center w-full'><img src={nodata} alt="noData" /></div> }
+            
                 </div>
               
           )}

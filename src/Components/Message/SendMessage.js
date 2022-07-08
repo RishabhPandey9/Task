@@ -10,8 +10,12 @@ import Header from "../NavBar-Sidebar/Header"
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Cookies from "universal-cookie";
-
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -71,18 +75,42 @@ const SendMessage = () => {
       .then((resp) => {
         navigate("/Message")
         console.log(resp);
-        navigate({
-          state: { token: resp.data.token },
-        });
+        toast.success("Message send succcessfully!!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+         
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+       
+        console.log(error.response,"asdadsads")
+        
+        
+      
+           
+          toast.error( "Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+           
+          
+        
       });
   }
   const addChange = (e) => {
     setUserId(e.target.value);
   };
-
+  toast.configure();
   return (
     <>
     <Header/>
@@ -98,8 +126,8 @@ const SendMessage = () => {
           </div>
         </Link>
         <div
-          className="text-red-500 flex items-center space-x-1 button_effect hover:bg-default-gray px-3 py-2 rounded-lg cursor-pointer"
-          onClick={() => navigate("/User")}
+           className="text-red-500 flex items-center space-x-1 button_effect hover:bg-default-gray px-3 py-2 rounded-lg cursor-pointer"
+           onClick={() => navigate("/Message")}
         >
           <RemoveCircleOutlineIcon style={{ height: 20 }} />
           <span>Discard</span>
@@ -110,22 +138,23 @@ const SendMessage = () => {
         <div className="flex justify-between">
         
           <div className="ml-3">
-            <div className="ml-2 font-semibold text-lg" >Select Company</div>
+           
             
-            <select
-              className="form-select bg-slate-100 mt-2 ml-1  appearance-none block w-60 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              aria-label="Default select example"
-              onChange={addChange}
-            >
-              <option className="w-40" selected>
-                Tag Admin
-              </option>
-              {data.map((user) => (
-                <option className="h-20" key={user.id} value={user.id}>
-                  {user.email}
-                </option>
-              ))}
-            </select>
+            <FormControl sx={{ minWidth: 300 }}>
+          <InputLabel>Choose Admin to be Taged</InputLabel>
+          <Select
+            // value={mode}
+            label="Payment Mode"
+            onChange={addChange}
+          >
+        
+             {data.map((user) => (
+                     <MenuItem key={user.id} value={user.id}>
+                     {user.email}
+                   </MenuItem>
+                    ))}
+          </Select>
+        </FormControl>
           </div>
             
       
