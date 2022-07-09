@@ -13,6 +13,7 @@ import { BsGithub } from "react-icons/bs";
 import logo from "../NavBar-Sidebar/HRI_Company_logo.png";
 import { BsDownload } from "react-icons/bs";
 import { saveAs } from "file-saver";
+
 import { Disclosure, Transition } from '@headlessui/react';
 
 const cookies = new Cookies();
@@ -44,7 +45,7 @@ const handleView =(e) => {
         console.log(err);
       });
   }
-
+  console.log('view', view)
   useEffect(() => {
     cookies.get("profileSharedByAdminID");
     getData();
@@ -210,8 +211,8 @@ const handleView =(e) => {
                                  <Disclosure>
                     {({ open }) => (
                       <>
-                        <Disclosure.Button className='text-regular flex w-full justify-between rounded-lg py-2  text-right font-medium text-[#4f46e5] underline '>
-                          <span>Read More</span>
+                        <Disclosure.Button onClick={() => {setView(!view)}} className='text-regular flex w-full justify-between rounded-lg py-2  text-right font-medium text-[#4f46e5] underline '>
+                          <span >{setView?'Read More' :'Read Less'}</span>
                         </Disclosure.Button>
                         <Transition
                           leave='transition duration-100 ease-out'

@@ -93,7 +93,7 @@ const SendMessage = () => {
         
       
            
-          toast.error( "Something went wrong", {
+          toast.error( "Feilds may no be blank!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -144,7 +144,7 @@ const SendMessage = () => {
           <InputLabel>Choose Admin to be Taged</InputLabel>
           <Select
             // value={mode}
-            label="Payment Mode"
+            label="Choose Admin to be Tageds"
             onChange={addChange}
           >
         

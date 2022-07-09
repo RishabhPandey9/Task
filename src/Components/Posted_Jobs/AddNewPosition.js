@@ -236,7 +236,7 @@ const AddNewPosition = () => {
                   className="w-full"
                   label="Salary"
               
-
+                  type="number"
                   id="outlined-size-small"
                    onChange={(e) => setStipend(e.target.value)}
                   size="small"
