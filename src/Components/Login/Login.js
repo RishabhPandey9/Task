@@ -37,11 +37,11 @@ const Login = () => {
     let data = { email, password };
     console.log(data);
     axios
-      .post("auth/company/login", data)
+      .post("auth/user/login", data)
       .then((resp) => {
         console.log(resp);
 
-        navigate("/Profile");
+        navigate("/Colleges");
         toast.success("Login successfully!", {
           position: "top-right",
           autoClose: 5000,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../NavBar-Sidebar/Header";
+import Header_Navbar from "../NavBar-Sidebar_CompanyList/Header_Navbar";
 import { selectHeader } from "../features/HeaderSlice";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -106,7 +106,7 @@ const CreateCompanyProfile = () => {
 
   return (
     <>
-      <Header />
+      <Header_Navbar />
       <div className="pt-5 pb-20 mt-[68px] bg-gray-100 px-4  md:px-10   w-full h-auto">
         <div
           className={

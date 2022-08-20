@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../NavBar-Sidebar/Header";
+
 import { selectHeader } from "../features/HeaderSlice";
 import { useSelector } from "react-redux";
-import logo from "../NavBar-Sidebar/HRI_Company_logo.png"
+
 import {RiBuildingFill} from "react-icons/ri"
 import Button from "@mui/material/Button";
 import { GoLocation } from "react-icons/go";
@@ -16,6 +16,7 @@ import { BsFillDiamondFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import comp from "./CompPng.png";
 import {MdAddCircleOutline} from "react-icons/md"
+import Header_Navbar from "../NavBar-Sidebar_CompanyList/Header_Navbar";
 const cookies = new Cookies();
 
 const CompanyProfile = () => {
@@ -71,6 +72,9 @@ const CompanyProfile = () => {
         setFacebook(resp.data.facebook_url)
         setLinkedIn(resp.data.linkedin_url)
         setCompLogo1(resp.data.logo_url)
+        cookies.set("companyName",resp.data.name)
+        cookies.set("companyProfile",resp.data.company_logo)
+
         
       })
       .catch((err) => {
@@ -85,7 +89,7 @@ const CompanyProfile = () => {
   const currentState = useSelector(selectHeader);
   return (
     <>
-      <Header />
+      <Header_Navbar />
       {data.length === 0?  <div
            
            className="pt-5 pb-20  bg-gray-100 px-4 mt-[68px]  md:px-10   w-full h-screen"
@@ -234,24 +238,7 @@ const CompanyProfile = () => {
                    </div>:""}
                  </div>
                </div>
-               {/* <div className="border-b-2 mt-8 border-gray-500"/> */}
-           {/* <div>
-             <div className="md:ml-[120px] text-center md:text-left  text-xl font-bold mt-8">Company details</div>
-             <div className=" md:ml-[120px] text-center md:text-left  mt-5 md:flex md:space-x-16">
-               <div >
-                 <div className="text-gray-400 font-semibold ">Company Logo</div>
-                 <div className="flex justify-center mt-2"><img className="w-12" src={complogo1} alt=""/></div>
-               </div>
-               <div>
-                 <div className="text-gray-400 font-semibold mb-2 mt-6 md:mt-0">Company Name</div>
-                 <div className="  text-xl">Company name</div>
-               </div>
-               <div>
-                 <div className="text-gray-400 font-semibold mb-2 mt-6 md:mt-0">Company Name</div>
-                 <div className="  text-xl">Company Tagline shown here</div>
-               </div>
-             </div>
-           </div> */}
+        
              </div>
             
            </div>
