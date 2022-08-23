@@ -1,230 +1,392 @@
-import LogImg from "./LoginImg.png";
+
 import React, { useState } from "react";
-
-
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
-import { BsApple } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import axios from "axios";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { toast,ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField
-} from "@mui/material";
-import "./Login.css"
 
-const cookies = new Cookies();
+import './Login.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [login,setLogin] = useState(true)
   const navigate = useNavigate();
-  const [error,setError] = useState('')
 
-  async function Login(e) {
+
+  const [inpval, setInpval] = useState({
+   
+    email: "",
+   firstName: '',
+   lastName: '',
+    password: ""
+})
+
+
+
+const [data,setData] = useState([]);
+console.log(inpval);
+
+const getdata = (e) => {
+    // console.log(e.target.value);
+
+
+    const { value, name } = e.target;
+    // console.log(value,name);
+
+
+    setInpval(() => {
+        return {
+            ...inpval,
+            [name]: value
+        }
+    })
+
+}
+
+const addData = (e) => {
     e.preventDefault();
-    let data = { email, password };
-    console.log(data);
-    axios
-      .post("auth/user/login", data)
-      .then((resp) => {
-        console.log(resp);
+    if (!login){
 
-        navigate("/Colleges");
-        toast.success("Login successfully!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-        cookies.set("token", resp.data.user.token);
-        cookies.set("id", resp.data.user.id);
-        cookies.set("email", resp.data.user.email);
-      }).catch(function (error) {
-       
-        console.log(error.response,"asdadsads")
-        
-        
+    const { name, email, date, password } = inpval;
+
+    if (name === "") {
+        toast.error(' name field is requred!',{
+            position: "top-center",
+        });
+    } else if (email === "") {
+         toast.error('email field is requred',{
+            position: "top-center",
+        });
+    } else if (!email.includes("@")) {
+         toast.error('plz enter valid email addres',{
+            position: "top-center",
+        });
+    } else if (date === "") {
+         toast.error('date field is requred',{
+            position: "top-center",
+        });
+    } else if (password === "") {
+         toast.error('password field is requred',{
+            position: "top-center",
+        });
+    } else if (password.length < 5) {
+         toast.error('password length greater five',{
+            position: "top-center",
+        });
+    } else {
+        console.log("data added succesfully");
       
-           
-          toast.error(error.response.data.user.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
-            console.log(error.response.data.user.message)
-          
-        
+        localStorage.setItem("useryoutube",JSON.stringify([...data,inpval]));
+        console.log('localStroage.getItem', localStorage.getItem('useryoutube'))
+        // navigate('/home')
+        setLogin(!login)
+        toast.success('SignUp Succesfully', {
+          position: "top-center",
       });
-  }
-  toast.configure();
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-});
 
+    }
+  }else{e.preventDefault();
 
-const handleClickShowPassword = () => {
-    setValues({
-        ...values,
-        showPassword: !values.showPassword,
-    });
-};
+    const getuserArr = localStorage.getItem("useryoutube");
+    console.log(getuserArr);
 
-const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-};
+    const { email, password } = inpval;
+    if (email === "") {
+        toast.error('email field is requred', {
+            position: "top-center",
+        });
+    } else if (!email.includes("@")) {
+        toast.error('plz enter valid email addres', {
+            position: "top-center",
+        });
+    } else if (password === "") {
+        toast.error('password field is requred', {
+            position: "top-center",
+        });
+    } else if (password.length < 5) {
+        toast.error('password length greater five', {
+            position: "top-center",
+        });
+    } else {
 
+        if (getuserArr && getuserArr.length) {
+            const userdata = JSON.parse(getuserArr);
+            const userlogin = userdata.filter((el, k) => {
+                return el.email === email && el.password === password
+            });
 
+            if (userlogin.length === 0) {
+                alert("invalid details")
+                toast.error('Login', {
+                  position: "top-center",
+              });
+            } else {
+                console.log("user login succesfulyy");
 
+                localStorage.setItem("user_login", JSON.stringify(userlogin))
+                toast.success('Login', {
+                  position: "top-center",
+              });
+              navigate('/home')
+            }
+        }
+    }
+}
 
-
+}
   return (
     <>
-    <div className="">
-    <div className="mx-8 h-auto  md:mx-20 mt-10 md:mt-12 lg:mt-16 ">
-        <div className=" md:flex">
-          <div className="hidden md:flex md:flex-col  w-1/2">
-            <div className="flex md:mt-16 lg:mt-2">
-              <div className="md:text-lg lg:text-2xl xl:text-3xl lg:mt-1 font-semibold ">
-                Welcome to
-              </div>
-              <div className="ml-1  md:text-xl lg:text-3xl xl:text-4xl font-semibold text-blue-700">
-                HRI Mybizmo
-              </div>
-            </div>
-            <div className="text-slate-400 md:text-sm lg:text-lg">
-              Plan your next recruitment here
-            </div>
+    <div
+      className="min-h-screen color flex flex-col items-center justify-center bg-gray-100"
+    >
+       <ToastContainer />
+      <div
+        className="
+          flex flex-col
+          bg-white
+          shadow-md
+          px-4
+          sm:px-6
+          md:px-8
+          lg:px-10
+          py-8
+          rounded-3xl
+          w-[400px]
+          max-w-md
+        "
+      >
+        <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
+         {login? "Welcome Back" : "Create Account"} 
+        </div>
+        <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
+        {login? <div> <span>Dont have Account </span><span onClick={() => setLogin(!login)} className="cursor-pointer font-semibold underline text-blue-600">Sign-Up</span></div> : <div> <span>Already have account ? </span><span onClick={() => setLogin(!login)} className="cursor-pointer font-semibold underline text-blue-600">Sign In</span></div>} 
+         
+        </div>
 
-            <div className=" mt-10 xl:mt-0 xl:pl-10 xl:pt-10 xl:pr-10  2xl:p-20">
-              <img
-                className="w-full md:h-60 lg:h-80 xl:h-96  "
-                src={LogImg}
-                alt=""
-              />
-            </div>
-            <div className="grid justify-end">
-              <div className="mt-2 text-xs lg:text-base text-slate-500">
-                Powered by HRI @MyBizmo
-              </div>
-            </div>
-          </div>
-          <div className="border-2 w-full py-5 px-5 md:w-1/2  rounded-lg border-blue-600 md:ml-20">
-            <div className="grid grid-cols-1 gap-y-4">
-              <div className="font-bold text-lg lg:text-2xl xl:text-3xl">
-              Login as Recruiter
-              </div>
-              <div className="xl:mt-6">
-                <TextField
-                  className="w-full "
-                  label="Enter Email ID/ Phone Number"
-                  id="outlined-size-small"
-                  onChange={(e) => setEmail(e.target.value)}
-                  size="small"
+        <div className="mt-10">
+          <form action="#">
+            <div className="flex flex-col mb-5">
+              <label
+                for="email"
+                className="mb-1 text-xs tracking-wide text-gray-600"
+                >E-Mail Address:</label
+              >
+              <div className="relative">
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                >
+                  <i className="fas fa-at text-blue-500"></i>
+                </div>
+
+                <input
+                onChange={getdata}
+                  id="email"
+                  type="email"
+                  name="email"
+                  className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                  placeholder="Enter your email"
                 />
               </div>
-            
-              <div className="">
-                                        <FormControl variant="outlined" className="w-full">
-                                            <InputLabel htmlFor="outlined-adornment-password" className="">
-                                                <div className="mt-[-5px]">Enter Your Password</div>
-                                            </InputLabel>
-                                            <OutlinedInput
-                                                label="Current Password"
-                                                className="w-full"
-                                                type={values.showPassword ? 'text' : 'password'}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                size="small"
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            type={values.showPassword ? 'text' : 'password'}
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                            size="small"
-                                                        >
-                                                            {values.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                                required
-                                            />
-                                        </FormControl>
-                                    </div>
-              <div className="grid justify-end">
-                <Link to="/ForgotPass">
-                  <div className="text-sm text-slate-500 cursor-pointer">
-                    Forgot Password?
-                  </div>
-                </Link>
-              </div>
-              <div className="mt-2 xl:mt-6">
-                <Button onClick={Login} className="w-full" variant="contained">
-                  Login
-                </Button>
-              </div>
-              <div>
-                <Link to="/Signup">
-                  <button className="border-2 hover:bg-slate-500 ease-in duration-200 hover:text-white py-2 w-full border-slate-300 rounded-lg text-sm text-slate-500">
-                    Not a Member? Sign Up
-                  </button>
-                </Link>
-              </div>
-              <div className="grid justify-center">
-                <div className="text-slate-600 font-semibold text-sm">
-                  Or login with
+            </div>
+            {!login ?   <div className="flex space-x-1">
+            <div className="flex flex-col mb-5">
+              <label
+                for="firstName"
+                className="mb-1 text-xs tracking-wide text-gray-600"
+                >First Name:</label
+              >
+              <div className="relative">
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                >
+                  <i className="fas fa-at text-blue-500"></i>
                 </div>
-              </div>
-              <div className="flex justify-between mx-5">
-                <div>
-                  <button className="border-2 px-2 py-1 xl:px-5 xl:py-2 xl:text-lg rounded border-slate-400">
-                    <FcGoogle />
-                  </button>
-                </div>
-                <div>
-                  <button className="text-blue-600 border-2 xl:px-5 xl:py-2 xl:text-lg px-2 py-1 rounded border-slate-400">
-                    <BsFacebook />
-                  </button>
-                </div>
-                <div>
-                  <button className="text-slate-500 border-2 px-2 xl:px-5 xl:py-2 xl:text-lg py-1 rounded border-slate-400">
-                    <BsApple />
-                  </button>
-                </div>
-              </div>
-              <div className="flex justify-center font-semibold text-xs xl:text-sm text-center">
-                <div>The&nbsp;</div>
-                <div className="text-blue-700">terms of use&nbsp;</div>
-                <div>and&nbsp;</div>
-                <div className="text-blue-700 ">our Policy</div>
+
+                <input
+                  id="firstName"
+                  onChange={getdata}
+                  type="text"
+                  name="First Name"
+                  className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-4
+                    pr-4
+                    rounded-l-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                  placeholder="Enter your first name"
+                />
               </div>
             </div>
-          </div>
+            <div className="flex flex-col mb-5">
+              <label
+                for="lastName"
+                className="mb-1 text-xs tracking-wide text-gray-600"
+                >Last Name:</label
+              >
+              <div className="relative">
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                >
+                  <i className="fas fa-at text-blue-500"></i>
+                </div>
+
+                <input
+                  id="lastName"
+                  onChange={getdata}
+                  type="text"
+                  name="lastName"
+                  className="
+                    text-sm
+                    placeholder-gray-500
+                   pl-4
+                    pr-4
+                   rounded-r-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                  placeholder="Enter your last name"
+                />
+              </div>
+            </div>
+            </div> : null }
+          
+          
+            <div className="flex flex-col mb-6">
+              <label
+                for="password"
+                className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600"
+                >Password:</label
+              >
+              <div className="relative">
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+                >
+                  <span>
+                    <i className="fas fa-lock text-blue-500"></i>
+                  </span>
+                </div>
+
+                <input
+                onChange={getdata}
+                  id="password"
+                  type="password"
+                  name="password"
+                  className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-blue-400
+                  "
+                  placeholder="Enter your password"
+                />
+              </div>
+            </div>
+
+            <div className="flex w-full">
+              <button
+              onClick={addData}
+                type="submit"
+                className="
+                  flex
+                  mt-2
+                  items-center
+                  justify-center
+                  focus:outline-none
+                  text-white text-sm
+                  sm:text-base
+                  bg-blue-500
+                  hover:bg-blue-600
+                  rounded-2xl
+                  py-2
+                  w-full
+                  transition
+                  duration-150
+                  ease-in
+                "
+              >
+                <span  className="mr-2 uppercase">{login?"Sign In" : 'Sign Up'}</span>
+                <span>
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
+      <div className="flex justify-center items-center mt-6">
+     
       </div>
     </div>
      
