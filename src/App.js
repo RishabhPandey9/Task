@@ -1,26 +1,35 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import Login from "./Components/Login/Login";
+import Navbar from "./Components/Navbar";
+import About from "./Page/About/About";
+import Head from "./Page/Head/Head";
+import Home from "./Page/Home/Home";
 
 
-import PageNotFound from "./Components/PageNotFound/PageNotFound";
+
+import PageNotFound from "./Page/PageNotFound/PageNotFound";
 
 
 function App() {
   return (
+    <>
+  
     <Router>
     <Routes>
     <Route path='*' exact element={<PageNotFound/>} />
       
-    <Route path='/' exact element={<Login/>} />
-    <Route path='/home' exact element={<Home/>} />
+    <Route path='/' exact element={<Home/>} />
+    <Route path='/about' exact element={<About/>} />
+    <Route path='/head' exact element={<Head/>} />
+
 
     
     
 
     </Routes>
     </Router>
+    </>
+   
   );
 }
 

@@ -10,7 +10,7 @@ export const HeaderSlice = createSlice({
       state.header = action.payload;
     },
     hiding: (state) => {
-      state.header = true;
+      state.header = null;
     },
   },
 

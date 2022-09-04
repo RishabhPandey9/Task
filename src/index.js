@@ -9,7 +9,7 @@ import 'tw-elements';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import 'antd/dist/antd.min.css'
 
-axios.defaults.baseURL = 'https://stgcompany.hri.mybizmo.com/';
+
 
 ReactDOM.render(
   <React.StrictMode>
